@@ -46,6 +46,7 @@ export default [
           "newlines-between": "always",
         },
       ],
+      "semi": ["error", "always"]
     },
     settings: {
       react: {
