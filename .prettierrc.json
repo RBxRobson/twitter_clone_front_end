@@ -1,0 +1,15 @@
+{
+  "trailingComma": "none",
+  "semi": false,
+  "singleQuote": true,
+  "plugins": ["prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^react",
+    "^@?\\w",
+    "^@/components/(.*)$",
+    "^@/styles/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
