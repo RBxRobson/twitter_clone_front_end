@@ -46,6 +46,9 @@ export default [
           "newlines-between": "always",
         },
       ],
+      "semi": ["error", "always"],
+      "quotes": ["error", "single", { "avoidEscape": true }],
+      "indent": ["error", 2]
     },
     settings: {
       react: {
