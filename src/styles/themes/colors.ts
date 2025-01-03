@@ -7,8 +7,9 @@ const darkShades = {
   d_40: '#e7e9ea1a',
   d_45: '#787a7a',
   d_50: '#71767b',
-  d_55: '#202327',
-  d_60: '#181818',
+  d_55: '#494d51',
+  d_60: '#202327',
+  d_65: '#181818',
 };
 
 const whiteShades = {
@@ -20,6 +21,7 @@ const whiteShades = {
 const blueShades = {
   b_50: '#1d9bf0',
   b_55: '#369BF0',
+  b_60: '#308CD8',
 };
 
 export const colors = {
