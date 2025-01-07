@@ -1,4 +1,7 @@
+import { useDispatch } from 'react-redux';
+
 import {IconClose, LogoSVG} from '../../../assets/images';
+import { closeModal } from '../../../store/reducers/auth';
 import * as S from './styles';
 
 type Props = {
@@ -11,6 +14,7 @@ type InputValues = {
 }
 
 const ModalForm = ({formModel}: Props) => {
+  const dispatch = useDispatch();
   const isRegisterForm = formModel === 'register';
 
   const registerFormInputs:InputValues[] = [
@@ -48,7 +52,12 @@ const ModalForm = ({formModel}: Props) => {
   return (
     <S.Overlay>
       <S.ModalForm>
-        <S.ButtonClose type="button" title="Fechar" aria-label="Fechar">
+        <S.ButtonClose 
+          onClick={() => dispatch(closeModal())} 
+          type="button" 
+          title="Fechar" 
+          aria-label="Fechar"
+        >
           <img src={IconClose} alt="Ícone fechar" />
         </S.ButtonClose>
         <S.Logo src={LogoSVG} alt="Logo Twitter/X" />
