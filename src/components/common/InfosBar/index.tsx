@@ -24,8 +24,8 @@ const InfosLinks = [
 const InfosBar = () => {
   return (
     <S.Nav>
-      {InfosLinks.map((info) => (
-        <a href='#'>
+      {InfosLinks.map((info, index) => (
+        <a href='#' key={index}>
           {info}
         </a>
       ))}
