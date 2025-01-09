@@ -6,7 +6,7 @@ import { RootReducer } from '../../../store';
 import * as S from './styles';
 
 const ContainerAuth = () => {
-  const { authType, isOpen } = useSelector((state: RootReducer) => state.auth);
+  const { isOpen } = useSelector((state: RootReducer) => state.auth);
 
   return (
     <S.ContainerAuth>
@@ -14,7 +14,7 @@ const ContainerAuth = () => {
         <img src={LogoSVG} alt="Logo Twitter/X" />
       </S.Logo>
       <WrapperLogin />
-      {isOpen && <ModalForm formModel={authType} />}
+      {isOpen && <ModalForm />}
     </S.ContainerAuth>
   );
 };
