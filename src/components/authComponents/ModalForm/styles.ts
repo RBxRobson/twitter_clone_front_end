@@ -21,6 +21,10 @@ export const ModalForm = styled.form`
   flex-direction: column;
   padding: 12px 80px 26px;
   border-radius: 20px;
+
+  &.loading {
+    cursor: progress;
+  }
 `;
 
 export const ButtonClose = styled.button`
@@ -65,7 +69,7 @@ export const TitleForm = styled.h2`
 export const Label = styled.label`
   ${({ theme }) => css`
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 6px;
     cursor: text;
 
     span {
@@ -80,6 +84,10 @@ export const Label = styled.label`
 
     &:focus-within span {
       color: ${theme.colors.blueShades.b_50};
+
+      &.error {
+        color: red;
+      }
     }
 
     &:focus-within span,
@@ -104,12 +112,25 @@ export const Input = styled.input`
     padding: 28px 8px 8px;
     z-index: 1;
 
-
     &:focus {
       border: 1px solid ${theme.colors.blueShades.b_50};
       outline: 1px solid ${theme.colors.blueShades.b_50};
     }
+
+    &.error {
+      border: 1px solid red;
+      outline: 1px solid red;
+    }
   `}
+`;
+
+export const MessageError = styled.small`
+  ${({ theme }) => css`
+    color: red;
+    margin-bottom: 30px;
+    padding-left: 8px;
+    font-size: ${theme.fontSizes.xs};
+  `};
 `;
 
 export const ButtonSubmit = styled.button`
@@ -127,6 +148,29 @@ export const ButtonSubmit = styled.button`
     &:hover,
     &:active {
       background-color: ${theme.colors.whiteShades.w_50};
+    }
+
+    &:disabled {
+      background-color: ${theme.colors.darkShades.d_45};
+      color: ${theme.colors.absoluteColors.black};
+      cursor: auto;
+    }
+
+    // Definindo a animação blink
+    @keyframes blink {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    &.loading {
+      animation: blink 1s infinite;
     }
   `};
 `;

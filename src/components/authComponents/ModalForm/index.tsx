@@ -1,57 +1,56 @@
+import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { FormikValues } from 'formik';
 
-import {IconClose, LogoSVG} from '../../../assets/images';
+import { RootReducer } from '../../../store';
+import { IconClose, LogoSVG } from '../../../assets/images';
 import { closeModal } from '../../../store/reducers/auth';
+import { 
+  loginFormInputs, 
+  registerFormInputs,
+  useFormLoginFormik, 
+  useFormRegisterFormik
+} from '../../../utils';
 import * as S from './styles';
 
-type Props = {
-  formModel: 'register' | 'login';
-}
-
-type InputValues = {
-  label: string;
-  type: string;
-}
-
-const ModalForm = ({formModel}: Props) => {
+const ModalForm = () => {
   const dispatch = useDispatch();
-  const isRegisterForm = formModel === 'register';
+  const { authType } = useSelector((state: RootReducer) => state.auth);
+  const isRegisterForm = authType === 'register';
 
-  const registerFormInputs:InputValues[] = [
-    {
-      label: 'Nome',
-      type: 'text',
-    },
-    {
-      label: 'Email',
-      type: 'email',
-    },
-    {
-      label: 'Senha',
-      type: 'password',
-    },
-    {
-      label: 'Confirme a senha',
-      type: 'password',
+  const { useFormFormik, inputs } = isRegisterForm
+    ? {
+      useFormFormik: useFormRegisterFormik() as FormikValues,
+      inputs: registerFormInputs,
     }
-  ];
+    : {
+      useFormFormik: useFormLoginFormik() as FormikValues,
+      inputs: loginFormInputs,
+    };
 
-  const loginFormInputs: InputValues[] = [
-    {
-      label: 'Email',
-      type: 'email',
-    },
-    {
-      label: 'Senha',
-      type: 'password',
-    },
-  ];
+  const isFieldError = (fieldName: string) => {
+    const isTouched = fieldName in useFormFormik.touched;
+    const isInvalid = fieldName in useFormFormik.errors;
+    const isChanged = useFormFormik.values[fieldName] !== useFormFormik.initialValues[fieldName];
 
-  const inputs = isRegisterForm ? registerFormInputs : loginFormInputs;
+    return isTouched && isInvalid && isChanged;
+  };
+
+  const getErrorMessage = (fieldName: string, message: string) => {
+    if (isFieldError(fieldName) === true) {
+      return message;
+    };
+  };
+
+  const classLoading = useFormFormik.isLoading ? 'loading' : '';
 
   return (
     <S.Overlay>
-      <S.ModalForm>
+      <S.ModalForm 
+        onSubmit={useFormFormik.handleSubmit} 
+        className={classLoading}
+      >
         <S.ButtonClose 
           onClick={() => dispatch(closeModal())} 
           type="button" 
@@ -65,14 +64,37 @@ const ModalForm = ({formModel}: Props) => {
           {isRegisterForm ? 'Criar sua conta' : 'Entrar no X'}
         </S.TitleForm>
         {
-          inputs.map((input) => (
-            <S.Label>
-              <S.Input type={input.type} placeholder=" " />
-              <span>{input.label}</span>
-            </S.Label>
+          inputs.map((input, index) => (
+            <React.Fragment key={`${input.id}_${index}`}>
+              <S.Label htmlFor={input.id}>
+                <S.Input 
+                  placeholder=" " 
+                  id={input.id} 
+                  name={input.id} 
+                  type={input.type} 
+                  onChange={useFormFormik.handleChange}
+                  onBlur={useFormFormik.handleBlur}
+                  value={useFormFormik.values[input.id]}
+                  className={isFieldError(input.id) ? 'error' : ''}
+                />
+                <span className={isFieldError(input.id) ? 'error' : ''}>
+                  {input.label}
+                </span>
+              </S.Label>
+              <S.MessageError>
+                {getErrorMessage(
+                  input.id,
+                  useFormFormik.errors[input.id]
+                )}
+              </S.MessageError>
+            </React.Fragment>
           ))
         }
-        <S.ButtonSubmit type="submit">
+        <S.ButtonSubmit 
+          type="submit" 
+          disabled={!useFormFormik.isValid || !useFormFormik.dirty || useFormFormik.isLoading}
+          className={classLoading}
+        >
           Avançar
         </S.ButtonSubmit>
       </S.ModalForm>
