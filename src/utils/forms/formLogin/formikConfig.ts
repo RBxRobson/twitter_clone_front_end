@@ -1,16 +1,20 @@
-import { useFormik, FormikProps } from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+import { useLoginUserMutation } from '../../../services/api';
+
 export type FormLogin = {
-  email: string | undefined;
-  password: string | undefined;
+  email: string;
+  password: string;
 }
 
-export const useFormLoginFormik = (): FormikProps<FormLogin> => {
-  return useFormik<FormLogin>({
+export const useFormLoginFormik = (): ExtendedFormikProps<FormLogin> => {
+  const [userLogin, {isLoading}] = useLoginUserMutation();
+
+  const formik = useFormik<FormLogin>({
     initialValues: {
-      email: undefined,
-      password: undefined,
+      email: '',
+      password: '',
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -19,8 +23,33 @@ export const useFormLoginFormik = (): FormikProps<FormLogin> => {
       password: Yup.string()
         .required('O campo de senha é obrigatório'),
     }),
-    onSubmit: () => {
-      
-    }
+    onSubmit: async (values, { resetForm, setFieldError }) => {
+      try {
+        const response = await userLogin({
+          email: values.email,
+          password: values.password,
+        }).unwrap();
+        // Salva chave de acesso no localStorage 
+        // (Por ser um projeto de estudos vou relevar a segurança)
+        localStorage.setItem('token', response.access);
+        resetForm();
+      } catch (error: any) {
+        if (error.data) {
+          Object.entries(error.data).forEach(([field, message]) => {
+            if (Array.isArray(message)) {
+              setFieldError(field, message[0] as string);
+            } else if (typeof message === 'string') {
+              setFieldError(field, message);
+            }
+          });
+        } else {
+          alert(
+            'Ocorreu um erro desconhecido ao tentar o login, tente novamente mais tarde.'
+          );
+        }
+      }
+    },
   });
+
+  return { ...formik, isLoading };
 };
