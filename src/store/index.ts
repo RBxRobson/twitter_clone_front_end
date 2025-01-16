@@ -1,15 +1,34 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer, persistStore } from 'redux-persist';
 
-import authReducer from './reducers/auth';
+import * as R from './reducers';
 import api from '../services/api';
 
-export const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    [api.reducerPath]: api.reducer
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware)
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['user', 'tokenJwt'],
+};
+
+const rootReducer = combineReducers({
+  auth: R.auth,
+  user: R.user,
+  tokenJwt: R.tokenJwt,
+  popUpExit: R.popUpExit,
+  [api.reducerPath]: api.reducer,
 });
 
-export type RootReducer = ReturnType<typeof store.getState>
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(api.middleware),
+});
+
+export const persistor = persistStore(store);
+
+export type RootReducer = ReturnType<typeof store.getState>;
