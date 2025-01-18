@@ -3,7 +3,7 @@ const breakpoints = {
   sm: '724px',
   md: '1034px',
   lg: '1109x',
-  xl: '1294px',
+  xl: '1296px',
 };
 
 const setBreakpoint = (size: string) => `@media (max-width: ${size})`;
