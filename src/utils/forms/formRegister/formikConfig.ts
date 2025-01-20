@@ -1,9 +1,11 @@
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import { useCreateUserMutation } from '../../../services/api';
-import { setAuthType } from '../../../store/reducers/auth';
+import { useCreateUserMutation, useLoginUserMutation } from '../../../services/api';
+import { setToken } from '../../../store/reducers/tokenJwt';
+import { closeModal } from '../../../store/reducers/auth';
 
 export type FormRegister = {
   name: string;
@@ -13,8 +15,11 @@ export type FormRegister = {
 };
 
 export const useFormRegisterFormik = (): ExtendedFormikProps<FormRegister> => {
-  const [createUser, {isLoading}] = useCreateUserMutation();
+  const [createUser, {isLoading: isLoadingCreation}] = useCreateUserMutation();
+  const [userLogin, {isLoading: isLoadingLogin}] = useLoginUserMutation();
+  const isLoading = isLoadingCreation && isLoadingLogin;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const formik = useFormik<FormRegister>({
     initialValues: {
@@ -52,13 +57,25 @@ export const useFormRegisterFormik = (): ExtendedFormikProps<FormRegister> => {
     }),
     onSubmit: async (values, { resetForm, setFieldError }) => {
       try {
+        // Cria o usuário
         await createUser({
           name: values.name,
           email: values.email,
           password: values.password,
         }).unwrap();
-        dispatch(setAuthType('login'));
+        // Faz o login e obtém o token
+        const loginResponse = await userLogin({
+          email: values.email,
+          password: values.password,
+        }).unwrap();
+        
+        dispatch(setToken({ token: loginResponse.access }));
+        
+        // Navega para a página inicial
+        navigate('/home');
+
         resetForm();
+        dispatch(closeModal());
       } catch (error: any) {
         if (error.data) {
           Object.entries(error.data).forEach(([field, message]) => {
