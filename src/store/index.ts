@@ -16,6 +16,7 @@ const rootReducer = combineReducers({
   user: R.user,
   tokenJwt: R.tokenJwt,
   popUpExit: R.popUpExit,
+  postModal: R.postModal,
   [api.reducerPath]: api.reducer,
 });
 
