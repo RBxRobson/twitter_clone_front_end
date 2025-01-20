@@ -7,7 +7,10 @@ const api = createApi({
     baseUrl: 'https://rbxrobson.pythonanywhere.com/',
     prepareHeaders: (headers, { getState, endpoint }) => {
       // Verifica se o endpoint atual requer autenticação
-      const requiresAuth = ['fetchCurrentUser'].includes(endpoint);
+      const requiresAuth = [
+        'fetchCurrentUser',
+        'createPost',
+      ].includes(endpoint);
       
       if (requiresAuth) {
         // Acessa o token armazenado no Redux
@@ -36,6 +39,13 @@ const api = createApi({
         body: credentials,
       }),
     }),
+    createPost: builder.mutation({
+      query: (credentials) => ({
+        url: 'postings/posts/',
+        method: 'POST',
+        body: credentials,
+      }),
+    }),
     fetchCurrentUser: builder.query<User, void>({
       query: () => 'accounts/users/me/',
     }),
@@ -45,7 +55,8 @@ const api = createApi({
 export const { 
   useCreateUserMutation, 
   useLoginUserMutation, 
-  useFetchCurrentUserQuery 
+  useFetchCurrentUserQuery,
+  useCreatePostMutation,
 } = api;
 
 export default api;
