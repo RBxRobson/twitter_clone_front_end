@@ -18,6 +18,9 @@ const GlobalStyles = createGlobalStyle`
       margin: 0;
       font-family: Twitter Chirp, sans-serif;
       list-style: none;
+      scrollbar-color: 
+        ${theme.colors.darkShades.d_55}
+        ${theme.colors.darkShades.d_65};
     };
 
     a {
@@ -27,7 +30,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     #root {
-      max-width: 1400px;
+      max-width: ${theme.breakpoints.xl};
       width: 100%;
       margin: 0 auto;
     }

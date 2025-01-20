@@ -1,7 +1,11 @@
 import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
 import { useLoginUserMutation } from '../../../services/api';
+import { setToken } from '../../../store/reducers/tokenJwt';
+import { closeModal } from '../../../store/reducers/auth';
 
 export type FormLogin = {
   email: string;
@@ -9,7 +13,9 @@ export type FormLogin = {
 }
 
 export const useFormLoginFormik = (): ExtendedFormikProps<FormLogin> => {
-  const [userLogin, {isLoading}] = useLoginUserMutation();
+  const [userLogin, { isLoading }] = useLoginUserMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const formik = useFormik<FormLogin>({
     initialValues: {
@@ -25,22 +31,23 @@ export const useFormLoginFormik = (): ExtendedFormikProps<FormLogin> => {
     }),
     onSubmit: async (values, { resetForm, setFieldError }) => {
       try {
-        const response = await userLogin({
+        // Faz o login e obtém o token
+        const loginResponse = await userLogin({
           email: values.email,
           password: values.password,
         }).unwrap();
-        // Salva chave de acesso no localStorage 
-        // (Por ser um projeto de estudos vou relevar a segurança)
-        localStorage.setItem('token', response.access);
+
+        dispatch(setToken({ token: loginResponse.access }));
+
+        // Navega para a página inicial
+        navigate('/home');
+
         resetForm();
+        dispatch(closeModal());
       } catch (error: any) {
         if (error.data) {
-          Object.entries(error.data).forEach(([field, message]) => {
-            if (Array.isArray(message)) {
-              setFieldError(field, message[0] as string);
-            } else if (typeof message === 'string') {
-              setFieldError(field, message);
-            }
+          error.data.fields.forEach((field: string) => {
+            setFieldError(field, error.data.detail);
           });
         } else {
           alert(

@@ -1,55 +1,24 @@
 import styled, { css } from 'styled-components';
 
-export const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100dvh;
-  width: 100dvw;
+import { 
+  ButtonPrimary, 
+  Modal, 
+  ButtonClose, 
+  Overlay, 
+} from '../../../styles/common';
+
+export { ButtonClose };
+
+export const ModalOverlay = styled(Overlay)`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #5b708366;
 `;
 
-export const ModalForm = styled.form`
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  background-color: #000;
+export const ModalForm = styled(Modal)`
   display: flex;
   flex-direction: column;
   padding: 12px 80px 26px;
-  border-radius: 20px;
-
-  &.loading {
-    cursor: progress;
-  }
-`;
-
-export const ButtonClose = styled.button`
-  ${({ theme }) => css`
-    border: none;
-    cursor: pointer;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    border-radius: 50%;
-    padding: 8px;
-    transition: ease-out 200ms;
-
-    &:hover, 
-    &:active {
-      background-color: ${theme.colors.darkShades.d_65};
-    }
-
-    img {
-      width: 22px;
-    }
-  `};
 `;
 
 export const Logo = styled.img`
@@ -133,44 +102,23 @@ export const MessageError = styled.small`
   `};
 `;
 
-export const ButtonSubmit = styled.button`
-  ${({ theme }) => css`
-    cursor: pointer;
-    border: none;
-    border-radius: 9999px;
-    padding: 15px;
-    margin-top: 50px;
-    background-color: ${theme.colors.whiteShades.w_40};
-    font-size: ${theme.fontSizes.md};
-    font-weight: ${theme.fontWeights.bold};
-    transition: ease-out 200ms;
+export const ButtonSubmit = styled(ButtonPrimary)`
+  margin-top: 50px;
 
-    &:hover,
-    &:active {
-      background-color: ${theme.colors.whiteShades.w_50};
+  // Definindo a animação blink
+  @keyframes blink {
+    0% {
+      opacity: 1;
     }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 
-    &:disabled {
-      background-color: ${theme.colors.darkShades.d_45};
-      color: ${theme.colors.absoluteColors.black};
-      cursor: auto;
-    }
-
-    // Definindo a animação blink
-    @keyframes blink {
-      0% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.5;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-
-    &.loading {
-      animation: blink 1s infinite;
-    }
-  `};
+  &.loading {
+    animation: blink 1s infinite;
+  }
 `;

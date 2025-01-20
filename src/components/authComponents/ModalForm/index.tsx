@@ -46,8 +46,9 @@ const ModalForm = () => {
   const classLoading = useFormFormik.isLoading ? 'loading' : '';
 
   return (
-    <S.Overlay>
+    <S.ModalOverlay onClick={() => dispatch(closeModal())} >
       <S.ModalForm 
+        onClick={(e) => e.stopPropagation()}
         onSubmit={useFormFormik.handleSubmit} 
         className={classLoading}
       >
@@ -68,6 +69,7 @@ const ModalForm = () => {
             <React.Fragment key={`${input.id}_${index}`}>
               <S.Label htmlFor={input.id}>
                 <S.Input 
+                  autoComplete={input.autoComplete}
                   placeholder=" " 
                   id={input.id} 
                   name={input.id} 
@@ -98,7 +100,7 @@ const ModalForm = () => {
           Avançar
         </S.ButtonSubmit>
       </S.ModalForm>
-    </S.Overlay>
+    </S.ModalOverlay>
   );
 };
 
