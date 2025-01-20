@@ -8,8 +8,8 @@ const initialState: PopUpState = {
   isOpen: false
 };
 
-const authSlice = createSlice({
-  name: 'auth',
+const popUpSlice = createSlice({
+  name: 'popUp',
   initialState,
   reducers: {
     openPopUp: (state) => {
@@ -21,5 +21,5 @@ const authSlice = createSlice({
   }
 });
 
-export const { openPopUp, closePopUp } = authSlice.actions;
-export default authSlice.reducer;
+export const { openPopUp, closePopUp } = popUpSlice.actions;
+export default popUpSlice.reducer;
