@@ -8,6 +8,7 @@ import { IconClose } from '../../../assets/images';
 import { RootReducer } from '../../../store';
 import * as S from './styles';
 import { useFormPost } from '../../../utils/forms/formPost/formikConfig';
+import { SmallAvatar } from '../../common';
 
 const PostModal = () => {
   const dispatch = useDispatch();
@@ -35,10 +36,7 @@ const PostModal = () => {
               <img src={IconClose} alt="Ícone fechar" />
             </S.ButtonClose>
             <S.InputGroup>
-              <S.SmallAvatar 
-                src={`https://rbxrobson.pythonanywhere.com${user?.profile.avatar}`} 
-                alt={`Foto de perfil do ${user?.name}`} 
-              />
+              <SmallAvatar user={user!} />
               <S.TextField 
                 placeholder="O que está acontecendo?!" 
                 maxLength={280}

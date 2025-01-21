@@ -3,11 +3,12 @@ import { useSelector } from 'react-redux';
 
 import { RootReducer } from '../../../store';
 import { closePopUp, openPopUp } from '../../../store/reducers/popUpExit';
+import { Loading, SmallAvatar, UserInfos } from '../../common';
 import * as S from './styles';
 
-const UserInfos = () => {
+const User = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state: RootReducer) => state.user);
+  const { user, isLoading } = useSelector((state: RootReducer) => state.user);
   const { isOpen } = useSelector((state: RootReducer) => state.popUpExit);
 
   const handleClickPopUp = () => {
@@ -18,19 +19,19 @@ const UserInfos = () => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <Loading size='small' />
+    );
+  }
+
   return (
-    <S.UserInfos onClick={handleClickPopUp}>
-      <S.SmallAvatar 
-        src={`https://rbxrobson.pythonanywhere.com${user?.profile.avatar}`} 
-        alt={`Foto de perfil do ${user?.name}`} 
-      />
-      <S.TextContainer>
-        <h4>{user?.name}</h4>
-        <span>{user?.username}</span>
-      </S.TextContainer>
+    <S.User onClick={handleClickPopUp}>
+      <SmallAvatar user={user!} />
+      <UserInfos user={user!} />
       <S.IconEllipsis>...</S.IconEllipsis>
-    </S.UserInfos>
+    </S.User>
   );
 };
 
-export default UserInfos;
+export default User;
