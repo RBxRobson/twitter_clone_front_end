@@ -104,21 +104,4 @@ export const MessageError = styled.small`
 
 export const ButtonSubmit = styled(ButtonPrimary)`
   margin-top: 50px;
-
-  // Definindo a animação blink
-  @keyframes blink {
-    0% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.5;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  &.loading {
-    animation: blink 1s infinite;
-  }
 `;
