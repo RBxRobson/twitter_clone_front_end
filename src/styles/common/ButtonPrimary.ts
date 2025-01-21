@@ -21,5 +21,22 @@ export const ButtonPrimary = styled.button`
       color: ${theme.colors.absoluteColors.black};
       cursor: auto;
     }
+
+    // Definindo a animação blink
+    @keyframes blink {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    &.loading {
+      animation: blink 1s infinite;
+    }
   `};
 `;
