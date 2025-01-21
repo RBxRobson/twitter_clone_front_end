@@ -10,6 +10,9 @@ const api = createApi({
       const requiresAuth = [
         'fetchCurrentUser',
         'createPost',
+        'followUser',
+        'unfollowUser',
+        'userRecommendations',
       ].includes(endpoint);
       
       if (requiresAuth) {
@@ -46,8 +49,38 @@ const api = createApi({
         body: credentials,
       }),
     }),
+    listFollowing: builder.query<User[], number>({
+      query: (userId) => ({
+        url: `accounts/users/${userId}/following/`,
+      }),
+    }),
+    listFollowers: builder.query<User[], number>({
+      query: (userId) => ({
+        url: `accounts/users/${userId}/followers/`,
+      }),
+    }),
+    userRecommendations: builder.query<User[], number>({
+      query: (userId) => ({
+        url: `accounts/users/${userId}/recommendations/`,
+      }),
+    }),
+    followUser: builder.mutation({
+      query: (userId: number) => ({
+        url: `accounts/users/${userId}/follow/`,
+        method: 'POST',
+      }),
+    }),
+    unfollowUser: builder.mutation({
+      query: (userId: number) => ({
+        url: `accounts/users/${userId}/unfollow/`,
+        method: 'POST',
+      }),
+    }),
     fetchCurrentUser: builder.query<User, void>({
       query: () => 'accounts/users/me/',
+    }),
+    getUsers: builder.query<User[], void>({
+      query: () => 'accounts/users/',
     }),
   }), 
 });
@@ -57,6 +90,12 @@ export const {
   useLoginUserMutation, 
   useFetchCurrentUserQuery,
   useCreatePostMutation,
+  useGetUsersQuery,
+  useFollowUserMutation,
+  useUnfollowUserMutation,
+  useListFollowingQuery,
+  useListFollowersQuery,
+  useUserRecommendationsQuery,
 } = api;
 
 export default api;
