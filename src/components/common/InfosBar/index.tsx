@@ -21,11 +21,15 @@ const InfosLinks = [
   '© 2025 X Corp',
 ];
 
-const InfosBar = () => {
+type Props = {
+  links?: string[]
+}
+
+const InfosBar = ( { links = InfosLinks }:Props ) => {
   return (
     <S.Nav>
-      {InfosLinks.map((info, index) => (
-        <a href='#' key={index}>
+      {links.map((info, index) => (
+        <a href="#" key={index} title="Funcionalidade não desenvolvida">
           {info}
         </a>
       ))}
