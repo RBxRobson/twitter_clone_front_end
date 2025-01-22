@@ -17,7 +17,7 @@ const AsideNav = () => {
         <Nav.RedirectHome />
         <Nav.NavItens />
         <Nav.ButtonPostNav />
-        <Nav.UserInfos />
+        <Nav.User />
       </S.AsideNav>
       {isOpenPopUp && (
         <Nav.PopUpBalloon />

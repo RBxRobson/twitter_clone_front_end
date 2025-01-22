@@ -1,10 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { SmallAvatar } from '../../../styles/common';
-
-export { SmallAvatar };
-
-export const UserInfos = styled.div`
+export const User = styled.div`
   ${({ theme }) => css`
     cursor: pointer;
     position: relative;
@@ -17,24 +13,6 @@ export const UserInfos = styled.div`
     &:hover,
     &:active {
       background-color: ${theme.colors.darkShades.d_65};
-    }
-  `}
-`;
-
-export const TextContainer = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    text-align: start;
-
-    h4,
-    span {
-      font-size: ${theme.fontSizes.sm};
-    }
-
-    span {
-      color: ${theme.colors.darkShades.d_45};
     }
   `}
 `;

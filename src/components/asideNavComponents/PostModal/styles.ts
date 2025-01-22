@@ -4,11 +4,10 @@ import {
   Modal, 
   ButtonClose, 
   Overlay, 
-  SmallAvatar,
   ButtonPrimary
 } from '../../../styles/common';
 
-export { ButtonClose, SmallAvatar };
+export { ButtonClose };
 
 export const ModalOverlay = styled(Overlay)`
   display: flex;

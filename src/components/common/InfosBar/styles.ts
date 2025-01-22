@@ -11,4 +11,8 @@ export const Nav = styled.nav`
   a {
     white-space: nowrap;
   };
+
+  a:hover {
+    text-decoration: underline;
+  }
 `;
