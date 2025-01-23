@@ -6,10 +6,11 @@ export const PopUpBalloon = styled.div`
     display: flex;
     align-items: center;
     position: absolute;
-    bottom: 90px;
+    top: 0;
     left: 12px;
+    transform: translateY(calc(100vh - 190px));
     width: 100%;
-    max-width: 360px;
+    max-width: 300px;
     min-height: 100px;
     padding: 12px 0;
     border-radius: 16px;
@@ -65,7 +66,7 @@ export const ExitLink = styled.a`
 `;
 
 export const ClosePopUp = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 1;

@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
@@ -29,10 +28,7 @@ const PopUpBalloon = () => {
             Sair {user?.username}
         </S.ExitLink>
       </S.PopUpBalloon>
-      {ReactDOM.createPortal(
-        <S.ClosePopUp onClick={handleClickClosePopUp} />,
-          document.getElementById('root')!
-      )}
+      <S.ClosePopUp onClick={handleClickClosePopUp} />
     </>
   );
 };
