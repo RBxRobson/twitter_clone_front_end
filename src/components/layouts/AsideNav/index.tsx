@@ -12,20 +12,18 @@ const AsideNav = () => {
     useSelector((state: RootReducer) => state.postModal);
 
   return (
-    <>
-      <S.AsideNav>
-        <Nav.RedirectHome />
-        <Nav.NavItens />
-        <Nav.ButtonPostNav />
-        <Nav.User />
-      </S.AsideNav>
+    <S.AsideNav>
+      <Nav.RedirectHome />
+      <Nav.NavItens />
+      <Nav.ButtonPostNav />
+      <Nav.User />
       {isOpenPopUp && (
         <Nav.PopUpBalloon />
       )}
       {isOpenPostModal && (
         <Nav.PostModal />
       )}
-    </>
+    </S.AsideNav>
   );
 };
 

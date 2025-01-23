@@ -6,6 +6,7 @@ import HomeIcon from './home_icon.svg';
 import HomeIconActive from './home_icon_active.svg';
 import SearchIconActive from './search_icon_active.svg';
 import ProfileIconActive from './profile_icon_active.svg';
+import BackIcon from './back_icon.svg';
 
 export { 
   IconClose, 
@@ -15,5 +16,6 @@ export {
   ProfileIcon,
   HomeIconActive,
   ProfileIconActive,
-  SearchIconActive
+  SearchIconActive,
+  BackIcon
 };

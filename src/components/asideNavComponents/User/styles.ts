@@ -9,6 +9,7 @@ export const User = styled.div`
     gap: 12px;
     border-radius: 9999px;
     padding: 12px;
+    padding-right: 34px;
 
     &:hover,
     &:active {
