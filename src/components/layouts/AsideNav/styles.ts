@@ -9,5 +9,7 @@ export const AsideNav = styled.nav`
   height: 100dvh; 
   padding: 12px;
   padding-top: 0;
+  max-width: 275px;
+  width: 100%;
   `;
 
