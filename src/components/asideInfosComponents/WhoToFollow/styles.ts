@@ -24,6 +24,7 @@ export const ListTitle = styled.h2`
 `;
 
 export const ListItem = styled.li`
+  cursor: pointer;
   display: flex;
   align-items: center;
   text-align: start;

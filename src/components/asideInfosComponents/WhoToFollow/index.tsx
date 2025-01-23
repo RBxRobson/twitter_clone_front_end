@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { skipToken } from '@reduxjs/toolkit/query/react';
+import { useNavigate } from 'react-router-dom';
 
 import { 
   useUserRecommendationsQuery
@@ -14,6 +15,7 @@ import { RootReducer } from '../../../store';
 import * as S from './styles';
 
 const WhoToFollow = () => {
+  const navigate = useNavigate();
   const { user } = useSelector((state: RootReducer) => state.user);
   const { 
     data: usersData,
@@ -50,16 +52,21 @@ const WhoToFollow = () => {
       <S.ListTitle>
         Quem Seguir
       </S.ListTitle>
-      {usersData?.map((user) => (
-        <S.ListItem key={user.id}>
-          <SmallAvatar user={user}/>
+      {usersData?.slice(0, 6).map((user) => (
+        <S.ListItem 
+          key={user.id} 
+          onClick={() => navigate(`/${user.username.replace('@', '')}`)}
+        >
+          <SmallAvatar user={user} />
           <UserInfos user={user} />
           <ButtonFollow userId={user.id} />
         </S.ListItem>
       ))}
-      <S.ShowMore href="/recommendations">
-        Mostrar mais
-      </S.ShowMore>
+      {usersData && usersData.length > 6 && (
+        <S.ShowMore href="/recommendations">
+          Mostrar mais
+        </S.ShowMore>
+      )}
     </S.ListContainer>
   );
 };
