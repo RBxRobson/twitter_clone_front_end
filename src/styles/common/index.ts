@@ -3,6 +3,7 @@ import { Modal } from './Modal';
 import { ButtonClose } from './ButtonClose';
 import { Overlay } from './Overlay';
 import { CentralWrapper } from './CentralWrapper';
+import { BtnBack } from './ButtonBack';
 
 export { 
   ButtonPrimary,
@@ -10,4 +11,5 @@ export {
   Modal,
   Overlay,
   CentralWrapper,
+  BtnBack,
 };
