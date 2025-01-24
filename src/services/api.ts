@@ -82,6 +82,11 @@ const api = createApi({
     getUsers: builder.query<User[], void>({
       query: () => 'accounts/users/',
     }),
+    getUser: builder.query<User, number | string>({
+      query: (user) => ({
+        url: `accounts/users/${user}/`,
+      }),
+    }),
   }), 
 });
 
@@ -96,6 +101,7 @@ export const {
   useListFollowingQuery,
   useListFollowersQuery,
   useUserRecommendationsQuery,
+  useGetUserQuery,
 } = api;
 
 export default api;
