@@ -55,7 +55,7 @@ const WhoToFollow = () => {
       {usersData?.slice(0, 6).map((user) => (
         <S.ListItem 
           key={user.id} 
-          onClick={() => navigate(`/${user.username.replace('@', '')}`)}
+          onClick={() => navigate(`/profile/${user.username.replace('@', '')}`)}
         >
           <SmallAvatar user={user} />
           <UserInfos user={user} />
