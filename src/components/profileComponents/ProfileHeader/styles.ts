@@ -11,8 +11,9 @@ export const Header = styled.header`
   align-items: center;
   gap: 30px;
   padding: 14px 10px;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(3px);
+  background: rgba(0, 0, 0, 0.76);
+  backdrop-filter: blur(6px);
+  z-index: 2;
 `;
 
 export const Title = styled.h2`

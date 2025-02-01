@@ -7,5 +7,5 @@ export const Overlay = styled.div`
   height: 100dvh;
   width: 100dvw;
   background-color: #5b708366;
-  z-index: 1;
+  z-index: 10;
 `;

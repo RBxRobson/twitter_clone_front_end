@@ -8,9 +8,6 @@ const AsideNav = () => {
   const { isOpen: isOpenPopUp } = 
     useSelector((state: RootReducer) => state.popUpExit);
 
-  const { isOpen: isOpenPostModal } = 
-    useSelector((state: RootReducer) => state.postModal);
-
   return (
     <S.AsideNav>
       <Nav.RedirectHome />
@@ -19,9 +16,6 @@ const AsideNav = () => {
       <Nav.User />
       {isOpenPopUp && (
         <Nav.PopUpBalloon />
-      )}
-      {isOpenPostModal && (
-        <Nav.PostModal />
       )}
     </S.AsideNav>
   );
