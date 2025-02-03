@@ -10,9 +10,12 @@ const api = createApi({
       const requiresAuth = [
         'fetchCurrentUser',
         'createPost',
+        'deletePost',
         'followUser',
         'unfollowUser',
         'userRecommendations',
+        'likePost',
+        'getUserPosts',
       ].includes(endpoint);
       
       if (requiresAuth) {
@@ -43,10 +46,30 @@ const api = createApi({
       }),
     }),
     createPost: builder.mutation({
-      query: (credentials) => ({
+      query: (postData) => ({
         url: 'postings/posts/',
         method: 'POST',
-        body: credentials,
+        body: postData,
+      }),
+    }),
+    createComment: builder.mutation({
+      query: ({postId, postData}) => ({
+        url: `postings/posts/${postId}/comments/`,
+        method: 'POST',
+        body: postData,
+      }),
+    }),
+    createReply: builder.mutation({
+      query: ({postId, postData, commentId}) => ({
+        url: `postings/posts/${postId}/comments/${commentId}/replies/`,
+        method: 'POST',
+        body: postData,
+      }),
+    }),
+    deletePost: builder.mutation({
+      query: (postId) => ({
+        url: `postings/posts/${postId}/`,
+        method: 'DELETE',
       }),
     }),
     listFollowing: builder.query<User[], number>({
@@ -87,6 +110,17 @@ const api = createApi({
         url: `accounts/users/${user}/`,
       }),
     }),
+    getUserPosts: builder.query<Post[], number | string>({
+      query: (user) => ({
+        url: `accounts/users/${user}/posts/`,
+      }),
+    }),
+    likePost: builder.mutation({
+      query: (postId: number) => ({
+        url: `postings/posts/${postId}/likes/`,
+        method: 'POST',
+      }),
+    }),
   }), 
 });
 
@@ -102,6 +136,11 @@ export const {
   useListFollowersQuery,
   useUserRecommendationsQuery,
   useGetUserQuery,
+  useGetUserPostsQuery,
+  useLikePostMutation,
+  useDeletePostMutation,
+  useCreateCommentMutation,
+  useCreateReplyMutation,
 } = api;
 
 export default api;
