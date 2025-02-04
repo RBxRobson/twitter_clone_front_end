@@ -14,4 +14,8 @@ export const InputGroup = styled.div`
   flex-direction: column;
   gap: 12px;
   width: 100%;
+
+  h4:hover {
+    text-decoration: none;
+  }
 `;
