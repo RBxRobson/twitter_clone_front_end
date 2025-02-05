@@ -1,13 +1,13 @@
 import { useDispatch } from 'react-redux';
 
-import { openPostModal } from '../../../store/reducers/postModal';
+import { openPublicationModal } from '../../../store/reducers/publicationModal';
 import * as S from './styles';
 
 const ButtonPostNav = () => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(openPostModal());
+    dispatch(openPublicationModal('post'));
   };
 
   return (
