@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { useCreatePostMutation } from '../../../services/api';
-import { closePostModal } from '../../../store/reducers/postModal';
+import { closePublicationModal } from '../../../store/reducers/publicationModal';
 
 export type FormPost = {
   postType: 'original' | 'quote' | 'repost';
   content: string;
+  original_post?: number
 }
 
 export const useFormPost = (): ExtendedFormikProps<FormPost> => {
@@ -35,10 +36,11 @@ export const useFormPost = (): ExtendedFormikProps<FormPost> => {
         await createPost({
           post_type: values.postType,
           content: values.content,
+          original_post: values.original_post,
         }).unwrap();
     
         // Fecha o modal e navega para a página inicial
-        dispatch(closePostModal());
+        dispatch(closePublicationModal());
         navigate('/home');
     
         // Reseta o formulário após o envio
