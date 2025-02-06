@@ -8,6 +8,11 @@ import SearchIconActive from './search_icon_active.svg';
 import ProfileIconActive from './profile_icon_active.svg';
 import BackIcon from './back_icon.svg';
 import DateIcon from './date_icon.svg';
+import MoreIcon from './more_icon.svg';
+import TrashIcon from './trash_icon.svg';
+import RemoveUserIcon from './remove_user_icon.svg';
+import AddUSerIcon from './add_user_icon.svg';
+import EditIcon from './edit_icon.svg';
 
 export { 
   IconClose, 
@@ -19,5 +24,10 @@ export {
   ProfileIconActive,
   SearchIconActive,
   BackIcon,
-  DateIcon
+  DateIcon,
+  AddUSerIcon,
+  MoreIcon,
+  RemoveUserIcon,
+  TrashIcon,
+  EditIcon
 };
