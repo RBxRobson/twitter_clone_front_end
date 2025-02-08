@@ -23,11 +23,11 @@ const PopUpBalloon = () => {
 
   return (
     <>
-      <S.PopUpBalloon>
+      <S.PopUpBallon>
         <S.ExitLink onClick={handleClickExitLink}>
             Sair {user?.username}
         </S.ExitLink>
-      </S.PopUpBalloon>
+      </S.PopUpBallon>
       <S.ClosePopUp onClick={handleClickClosePopUp} />
     </>
   );
