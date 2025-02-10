@@ -6,12 +6,12 @@ export const PostContainer = styled.div`
     gap: 4px;
 
     span, time {
-        color: ${theme.colors.darkShades.d_45};
-        cursor: default;
-      }
+      color: ${theme.colors.darkShades.d_45};
+      cursor: default;
+    }
 
     .divisor {
-      padding: 0 4px;
+      padding-right: 4px;
     }
   `}
 `;
@@ -49,7 +49,6 @@ export const WrapperOverflow = styled.div`
       width: fit-content;
     }
 
-    h4:hover,
     a:hover {
       text-decoration: underline;
     }
