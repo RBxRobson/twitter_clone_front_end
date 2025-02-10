@@ -2,13 +2,14 @@ import * as S from './styles';
 
 type Props = {
   user?: User;
-  postUser?: UserDetails
+  postUser?: UserDetails;
 };
 
 const SmallAvatar = ({ user, postUser }: Props) => {
   if (postUser) {
     return (
       <S.SmallAvatar
+        onClick={(e) => e.stopPropagation()}
         src={`https://rbxrobson.pythonanywhere.com${postUser.avatar}`} 
         alt={`Foto de perfil do ${postUser.username}`}
       />
