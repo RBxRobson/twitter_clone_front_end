@@ -15,7 +15,6 @@ export const AsideInfos = styled.aside`
     max-width: 350px;
     width: 100%;
     text-align: start;
-    z-index: 1;
 
     &>nav {
       justify-content: start;
