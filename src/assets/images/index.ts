@@ -13,6 +13,7 @@ import TrashIcon from './trash_icon.svg';
 import RemoveUserIcon from './remove_user_icon.svg';
 import AddUSerIcon from './add_user_icon.svg';
 import EditIcon from './edit_icon.svg';
+import CameraIcon from './camera_icon.svg';
 
 export { 
   IconClose, 
@@ -29,5 +30,6 @@ export {
   MoreIcon,
   RemoveUserIcon,
   TrashIcon,
-  EditIcon
+  EditIcon,
+  CameraIcon
 };
