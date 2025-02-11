@@ -46,5 +46,6 @@ export const ContentPost = styled.div`
 
   &>p {
     margin: 6px 0 14px;
+    word-break: break-word;
   }
 `;
