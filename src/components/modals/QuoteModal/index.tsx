@@ -32,7 +32,7 @@ const QuoteModal = ({form, user, post}: Props) => {
           onBlur={form.handleBlur}
           value={form.values['content']}
         />
-        <Quote post={post}/>
+        <Quote isModal publication={post} />
       </S.InputGroup>
     </S.FormWrapper>
   );
