@@ -59,7 +59,7 @@ const WhoToFollow = () => {
         >
           <SmallAvatar user={user} />
           <UserInfos user={user} />
-          <ButtonFollow userId={user.id} />
+          <ButtonFollow userId={user.id} isFollowing={user.is_following}/>
         </S.ListItem>
       ))}
       {usersData && usersData.length > 6 && (
