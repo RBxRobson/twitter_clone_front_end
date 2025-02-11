@@ -48,7 +48,7 @@ const Recommendations = () => {
             <S.ItemContainer>
               <SmallAvatar user={user}/>
               <UserInfos user={user} />
-              <ButtonFollow userId={user.id} />
+              <ButtonFollow userId={user.id} isFollowing={user.is_following}/>
             </S.ItemContainer>
             <p>{user.profile.bio}</p>
           </S.ListItem>
