@@ -12,7 +12,7 @@ export const Cover = styled.img`
 `;
 
 export const Avatar = styled.img`
-  width: calc(100% - 20px);
+  width: 100%;
   max-height: 134px;
   object-fit: cover;
 `;
