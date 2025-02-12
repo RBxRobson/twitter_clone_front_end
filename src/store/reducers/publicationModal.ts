@@ -1,15 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { Comment } from '../../types/comment-details';
+
 type PublicationModalState = {
-  isOpen: boolean
-  typeModal: 'comment' | 'post' | 'quote' | null
-  quotePost: Post | null
+  isOpen: boolean;
+  typeModal: 'comment' | 'post' | 'quote' | 'edit' | null;
+  post: Post | null;
+  comment: Comment | null;
 };
 
 const initialState: PublicationModalState = {
   isOpen: false,
   typeModal: null,
-  quotePost: null
+  post: null,
+  comment: null
 };
 
 const publicationModalSlice = createSlice({
@@ -25,21 +29,50 @@ const publicationModalSlice = createSlice({
     closePublicationModal: (state) => {
       state.isOpen = false;
       state.typeModal = null;
+      state.comment = null;
+      state.post = null;
     },
-    setQuotePost: (
-      state, action: PayloadAction<PublicationModalState['quotePost']>
-    ) => {
+    openQuoteModal: (state, action: PayloadAction<Post>) => {
       state.typeModal = 'quote';
-      state.quotePost = action.payload;
+      state.post = action.payload;
+      state.comment = null;
       state.isOpen = true;
-      console.log(state.typeModal, action.payload, state.isOpen);
-    }
-  }
+    },
+    openCommentModal: (state, action: PayloadAction<Comment | Post>) => {
+      state.typeModal = 'comment';
+
+      if ('post_type' in action.payload) {
+        state.post = action.payload as Post;
+        state.comment = null;
+      } else {
+        state.comment = action.payload as Comment;
+        state.post = null;
+      }
+      
+      state.isOpen = true;
+    },
+    openEditModal: (state, action: PayloadAction<Comment | Post>) => {
+      state.typeModal = 'edit';
+
+      if ('post_type' in action.payload) {
+        state.post = action.payload as Post;
+        state.comment = null;
+      } else {
+        state.comment = action.payload as Comment;
+        state.post = null;
+      }
+      
+      state.isOpen = true;
+    },
+  },
 });
 
 export const { 
   openPublicationModal, 
   closePublicationModal,
-  setQuotePost,
+  openQuoteModal,
+  openCommentModal,
+  openEditModal
 } = publicationModalSlice.actions;
+
 export default publicationModalSlice.reducer;
