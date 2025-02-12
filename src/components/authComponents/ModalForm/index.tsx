@@ -68,7 +68,7 @@ const ModalForm = () => {
           inputs.map((input, index) => (
             <React.Fragment key={`${input.id}_${index}`}>
               <S.Label htmlFor={input.id}>
-                <S.Input 
+                <input 
                   autoComplete={input.autoComplete}
                   placeholder=" " 
                   id={input.id} 

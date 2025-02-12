@@ -2,7 +2,14 @@ import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { RootReducer } from '../../../store';
-import * as Img from '../../../assets/images';
+import { 
+  HomeIcon,
+  HomeIconActive,
+  ProfileIcon,
+  ProfileIconActive,
+  SearchIcon,
+  SearchIconActive,
+} from '../../../assets/images';
 import * as S from './styles';
 
 const NavItens = () => {
@@ -12,7 +19,7 @@ const NavItens = () => {
 
   const setProfileRoute = () => {
     if (user !== undefined) {
-      return `/${user?.username.replace('@', '')}`;
+      return `/profile/${user?.username.replace('@', '')}`;
     } else {
       '/404';
     };
@@ -23,20 +30,20 @@ const NavItens = () => {
     {
       path: '/home',
       label: 'Página inicial',
-      icon: Img.HomeIcon,
-      iconActive: Img.HomeIconActive,
+      icon: HomeIcon,
+      iconActive: HomeIconActive,
     },
     {
       path: '/explore',
       label: 'Explorar',
-      icon: Img.SearchIcon,
-      iconActive: Img.SearchIconActive,
+      icon: SearchIcon,
+      iconActive: SearchIconActive,
     },
     {
       path: setProfileRoute(),
       label: 'Perfil',
-      icon: Img.ProfileIcon,
-      iconActive: Img.ProfileIconActive,
+      icon: ProfileIcon,
+      iconActive: ProfileIconActive,
     },
   ];
 

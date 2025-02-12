@@ -7,5 +7,7 @@ export const CentralWrapper = styled.div`
     border: 1px solid ${theme.colors.darkShades.d_55};
     border-top: none;
     border-bottom: none;
+    position: relative;
+    z-index: 1;
   `}
 `;

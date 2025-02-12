@@ -2,12 +2,12 @@ import auth from './auth';
 import user from './user';
 import tokenJwt from './tokenJwt';
 import popUpExit from './popUpExit';
-import postModal from './postModal';
+import publicationModal from './publicationModal';
 
 export {
   auth,
   popUpExit,
   tokenJwt,
   user,
-  postModal
+  publicationModal
 };

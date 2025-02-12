@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 
-import { CentralWrapper } from '../../styles/common';
+import { CentralWrapper, BtnBack } from '../../styles/common';
 
-export { CentralWrapper };
+export { CentralWrapper, BtnBack };
 
 export const Header = styled.header`
   position: sticky;
@@ -11,34 +11,13 @@ export const Header = styled.header`
   align-items: center;
   gap: 30px;
   padding: 14px 10px;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(3px);
+  background: rgba(0, 0, 0, 0.76);
+  backdrop-filter: blur(6px);
 `;
 
 export const Title = styled.h2`
   ${({ theme }) => css`
     font-size: ${theme.fontSizes.lg};
-  `}
-`;
-
-export const BtnBack = styled.a`
-  ${({ theme }) => css`
-    cursor: pointer;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    padding: 8px;
-
-    &:hover,
-    &:active {
-      background-color: ${theme.colors.darkShades.d_60};
-    }
-
-    img {
-      width: 20px;
-    }
   `}
 `;
 
@@ -55,6 +34,7 @@ export const RecommendationsList = styled.ul`
 
 export const ListItem = styled.li`
   ${({ theme }) => css`
+  cursor: pointer;
     p {
       margin-left: auto;
       font-size: ${theme.fontSizes.md};

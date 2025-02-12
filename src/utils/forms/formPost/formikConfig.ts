@@ -1,24 +1,26 @@
 import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { useCreatePostMutation } from '../../../services/api';
-import { closePostModal } from '../../../store/reducers/postModal';
+import { useCreatePostMutation, useEditPostMutation } from '../../../services/api';
+import { closePublicationModal } from '../../../store/reducers/publicationModal';
 
 export type FormPost = {
   postType: 'original' | 'quote' | 'repost';
   content: string;
+  original_post?: number
 }
 
-export const useFormPost = (): ExtendedFormikProps<FormPost> => {
-  const [createPost, { isLoading }] = useCreatePostMutation();
+export const useFormPost = (publication?: Post): ExtendedFormikProps<FormPost> => {
+  const [createPost, { isLoading: loadingCreate }] = useCreatePostMutation();
+  const [editPost, { isLoading: loadingEdit }] = useEditPostMutation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  const isLoading = loadingCreate || loadingEdit;
 
   const formik = useFormik<FormPost>({
     initialValues: {
       postType: 'original',
-      content: '',
+      content: publication ? publication.content : '',
     },
     onSubmit: async (values, { resetForm, setFieldError }) => {
       try {
@@ -31,15 +33,23 @@ export const useFormPost = (): ExtendedFormikProps<FormPost> => {
           return; // Interrompe o envio se a validação falhar
         }
     
-        // Chama a API para criar o post
-        await createPost({
-          post_type: values.postType,
-          content: values.content,
-        }).unwrap();
+        if (publication) {
+          // Chama a API para criar o post
+          await editPost({
+            postId: publication.id,
+            postData: {content : values.content}
+          }).unwrap();
+        } else {
+          // Chama a API para criar o post
+          await createPost({
+            post_type: values.postType,
+            content: values.content,
+            original_post: values.original_post,
+          }).unwrap();
+        }
     
         // Fecha o modal e navega para a página inicial
-        dispatch(closePostModal());
-        navigate('/home');
+        dispatch(closePublicationModal());
     
         // Reseta o formulário após o envio
         resetForm();

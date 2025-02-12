@@ -15,4 +15,5 @@ declare interface User {
   following_count: number;
   created_at: string;
   updated_at: string;
+  is_following: boolean;
 }

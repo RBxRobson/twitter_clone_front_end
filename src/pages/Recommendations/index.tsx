@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { skipToken } from '@reduxjs/toolkit/query';
+import { useNavigate } from 'react-router-dom';
 
 import { BackIcon } from '../../assets/images';
 import { ButtonFollow, Loading, SmallAvatar, UserInfos } from '../../components/common';
@@ -8,6 +9,7 @@ import { RootReducer } from '../../store';
 import * as S from './styles';
 
 const Recommendations = () => {
+  const navigate = useNavigate();
   const { user } = useSelector((state: RootReducer) => state.user);
   const { 
     data: usersData,
@@ -39,11 +41,14 @@ const Recommendations = () => {
       <S.RecommendationsList>
         <h2>Sugerido para você</h2>
         {usersData?.map((user) => (
-          <S.ListItem key={user.id}>
+          <S.ListItem 
+            key={user.id}
+            onClick={() => navigate(`/profile/${user.username.replace('@', '')}`)}
+          >
             <S.ItemContainer>
               <SmallAvatar user={user}/>
               <UserInfos user={user} />
-              <ButtonFollow userId={user.id} />
+              <ButtonFollow userId={user.id} isFollowing={user.is_following}/>
             </S.ItemContainer>
             <p>{user.profile.bio}</p>
           </S.ListItem>
