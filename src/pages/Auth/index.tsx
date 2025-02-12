@@ -1,5 +1,6 @@
 import * as S from './styles';
-import { InfosBar, ContainerAuth } from '../../components';
+import { ContainerAuth } from '../../components/authComponents';
+import { InfosBar } from '../../components/common';
 
 const Auth = () => {
   return (
