@@ -1,9 +1,15 @@
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
+import * as Yup from 'yup';
 
-import { useCreateCommentMutation, useCreateReplyMutation } from '../../../services/api';
+import { Comment } from '../../../types/comment-details';
+import { 
+  useCreateCommentMutation, 
+  useCreateReplyMutation,
+  useEditCommentMutation,
+  useEditReplyMutation,
+} from '../../../services/api';
 import { closePublicationModal } from '../../../store/reducers/publicationModal';
 import { RootReducer } from '../../../store';
 
@@ -12,16 +18,18 @@ export type FormComment = {
   isReply: boolean;
 }
 
-export const useFormComment = (): ExtendedFormikProps<FormComment> => {
+export const useFormComment = (publication?: Comment): ExtendedFormikProps<FormComment> => {
   const { post, comment } = useSelector((state: RootReducer) => state.publicationModal);
   const [createComment, { isLoading: isLoadingComment }] = useCreateCommentMutation();
+  const [editComment, { isLoading: isLoadingEditComment }] = useEditCommentMutation();
   const [createReply, { isLoading: isLoadingReply }] = useCreateReplyMutation();
-  const isLoading = isLoadingComment || isLoadingReply;
+  const [editReply, { isLoading: isLoadingEditReply }] = useEditReplyMutation();
+  const isLoading = isLoadingComment || isLoadingReply || isLoadingEditComment || isLoadingEditReply;
   const dispatch = useDispatch();
 
   const formik = useFormik<FormComment>({
     initialValues: {
-      content: '',
+      content: publication ? publication.content : '',
       isReply: Boolean(comment)
     },
     enableReinitialize: true,
@@ -33,16 +41,33 @@ export const useFormComment = (): ExtendedFormikProps<FormComment> => {
       try {
         // Chama a API para criar o comentário ou resposta
         if (values.isReply) {
-          await createReply({
-            postId: comment?.post,
-            commentId: comment?.id,
-            commentData: {content: values.content},
-          }).unwrap();
+          if (publication) {
+            await editReply({
+              postId: comment?.post,
+              commentId: comment?.id,
+              replyId: publication.id,
+              commentData: {content: values.content},
+            }).unwrap();
+          } else {
+            await createReply({
+              postId: comment?.post,
+              commentId: comment?.id,
+              commentData: {content: values.content},
+            }).unwrap();
+          }
         } else {
-          await createComment({
-            postId: post?.id,
-            commentData: {content: values.content},
-          }).unwrap();
+          if (publication) {
+            await editComment({
+              postId: comment?.post,
+              commentId: publication?.id,
+              commentData: {content: values.content},
+            }).unwrap();
+          } else {
+            await createComment({
+              postId: post?.id,
+              commentData: {content: values.content},
+            }).unwrap();
+          }
         }
         // Fecha o modal
         dispatch(closePublicationModal());
