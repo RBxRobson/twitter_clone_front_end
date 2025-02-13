@@ -23,14 +23,24 @@ const ProfileContent = ({ user }:Props) => {
     return `Entrou em ${month.charAt(0).toUpperCase() + month.slice(1)} de ${year}`;
   };
 
+  const handleClickOpen = () => {
+    setIsOpenModal(true);
+    document.body.style.overflowY = 'hidden';
+  };
+
+  const handleClickClose = () => {
+    setIsOpenModal(false);
+    document.body.style.overflowY = 'auto';
+  };
+
   return (
     <S.ProfileContent>
       {currentUser?.id === user.id ? (
         <>
-          <S.ButtonProfile onClick={() => setIsOpenModal(true)}>
+          <S.ButtonProfile onClick={handleClickOpen}>
           Editar perfil
           </S.ButtonProfile>
-          {isOpenModal &&  <UpdateUserModal closeModal={() => setIsOpenModal(false)}/>}
+          {isOpenModal &&  <UpdateUserModal closeModal={handleClickClose}/>}
         </>
       ) : (
         <ButtonFollow userId={user.id} isFollowing={user.is_following}/>
