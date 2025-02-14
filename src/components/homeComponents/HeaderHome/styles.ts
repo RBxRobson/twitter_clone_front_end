@@ -6,6 +6,7 @@ export const HeaderContainer = styled.header`
     top: 0;
     display: flex;
     border-bottom: 1px solid ${theme.colors.darkShades.d_55};
+    z-index: 1;
   `}
 `;
 
