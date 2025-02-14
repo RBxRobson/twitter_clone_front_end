@@ -1,17 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const PostContainer = styled.li`
-  position: relative;
-  display: flex;
-  gap: 8px;
-  padding: 16px 16px 8px;
-  cursor: pointer;
+export const Feed = styled.ul`
+  ${({ theme }) => css`
+    padding-bottom: 14px;
+    border-top: 1px solid ${theme.colors.darkShades.d_55};
 
-  &>img {
-    cursor: default;
-  }
-
-  &.is-repost {
-    padding-top: 28px;
-  }
+    &>li {
+      border-bottom: 1px solid ${theme.colors.darkShades.d_55};
+    }
+  `}
 `;
