@@ -8,13 +8,9 @@ export const Title = styled.h3`
   `}
 `;
 
-export const Feed = styled.ul`
+export const Wrapper = styled.div`
   ${({ theme }) => css`
-    padding: 14px 0;
+    padding-top: 12px;
     border-top: 1px solid ${theme.colors.darkShades.d_55};
-
-    &>li {
-      border-bottom: 1px solid ${theme.colors.darkShades.d_55};
-    }
   `}
 `;

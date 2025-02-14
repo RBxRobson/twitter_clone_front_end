@@ -17,7 +17,6 @@ export const RepostWarning = styled.div`
     svg {
       width: 15px;
       fill: ${theme.colors.darkShades.d_45};
-      stroke: ${theme.colors.darkShades.d_45};
     }
 
     a {

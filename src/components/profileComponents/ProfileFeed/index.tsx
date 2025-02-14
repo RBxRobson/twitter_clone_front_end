@@ -14,7 +14,9 @@ const ProfileFeed = () => {
         <S.Title>
           Postagens
         </S.Title>
-        <Loading />
+        <S.Wrapper>
+          <Loading />
+        </S.Wrapper>
       </>
     );
   }
@@ -25,9 +27,9 @@ const ProfileFeed = () => {
         <S.Title>
           Postagens
         </S.Title>
-        <S.Feed>
-          O usuário não possui nenhuma postagem
-        </S.Feed>
+        <S.Wrapper>
+          Este usuário ainda não possui postagens
+        </S.Wrapper>
       </>
     );
   }
@@ -37,9 +39,7 @@ const ProfileFeed = () => {
       <S.Title>
         Postagens
       </S.Title>
-      <S.Feed>
-        <PostList posts={data!} />
-      </S.Feed>
+      <PostList posts={data!} />
     </>
   );
 };
