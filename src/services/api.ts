@@ -24,7 +24,9 @@ const api = createApi({
         'editComment',
         'getUser',
         'getUsers',
-        'updateUser'
+        'updateUser',
+        'getUserFeed',
+        'getPosts'
       ].includes(endpoint);
       
       if (requiresAuth) {
@@ -39,7 +41,7 @@ const api = createApi({
       return headers;
     },
   }),
-  tagTypes: ['UserPosts', 'UserProfile'],
+  tagTypes: ['UserPosts', 'UserProfile', 'UserFeed', 'Posts'],
   endpoints: (builder) => ({
     fetchCurrentUser: builder.query<User, void>({
       query: () => 'accounts/users/me/',
@@ -84,13 +86,43 @@ const api = createApi({
         body: credentials,
       }),
     }),
+    listFollowing: builder.query<User[], number>({
+      query: (userId) => ({
+        url: `accounts/users/${userId}/following/`,
+      }),
+    }),
+    listFollowers: builder.query<User[], number>({
+      query: (userId) => ({
+        url: `accounts/users/${userId}/followers/`,
+      }),
+    }),
+    userRecommendations: builder.query<User[], number>({
+      query: (userId) => ({
+        url: `accounts/users/${userId}/recommendations/`,
+      }),
+    }),
+    followUser: builder.mutation({
+      query: (userId: number) => ({
+        url: `accounts/users/${userId}/follow/`,
+        method: 'POST',
+      }),
+    }),
+    unfollowUser: builder.mutation({
+      query: (userId: number) => ({
+        url: `accounts/users/${userId}/unfollow/`,
+        method: 'POST',
+      }),
+    }),
     createPost: builder.mutation({
       query: (postData) => ({
         url: 'postings/posts/',
         method: 'POST',
         body: postData,
       }),
-      invalidatesTags: ['UserPosts']
+      invalidatesTags: (result, error, { tags }: { tags?: ValidTags[] }) => {
+        if (!result || error || !tags?.length) return [];
+        return tags;
+      }
     }),
     editPost: builder.mutation({
       query: ({ postId, postData }) => ({
@@ -98,7 +130,10 @@ const api = createApi({
         method: 'PUT',
         body: postData,
       }),
-      invalidatesTags: ['UserPosts']
+      invalidatesTags: (result, error, { tags }: { tags?: ValidTags[] }) => {
+        if (!result || error || !tags?.length) return [];
+        return tags;
+      }
     }),
     createComment: builder.mutation({
       query: ({ postId, commentData }) => {
@@ -141,37 +176,22 @@ const api = createApi({
       }),
       invalidatesTags: ['UserPosts']
     }),
-    listFollowing: builder.query<User[], number>({
-      query: (userId) => ({
-        url: `accounts/users/${userId}/following/`,
-      }),
-    }),
-    listFollowers: builder.query<User[], number>({
-      query: (userId) => ({
-        url: `accounts/users/${userId}/followers/`,
-      }),
-    }),
-    userRecommendations: builder.query<User[], number>({
-      query: (userId) => ({
-        url: `accounts/users/${userId}/recommendations/`,
-      }),
-    }),
-    followUser: builder.mutation({
-      query: (userId: number) => ({
-        url: `accounts/users/${userId}/follow/`,
-        method: 'POST',
-      }),
-    }),
-    unfollowUser: builder.mutation({
-      query: (userId: number) => ({
-        url: `accounts/users/${userId}/unfollow/`,
-        method: 'POST',
-      }),
-    }),
     likePost: builder.mutation({
       query: (postId: number) => ({
         url: `postings/posts/${postId}/likes/`,
         method: 'POST',
+      }),
+    }),
+    getUserFeed: builder.query<Post[], void>({
+      query: () => ({
+        url: 'postings/feed/',
+        providesTags: ['UserProfile']
+      }),
+    }),
+    getPosts: builder.query<Post[], void>({
+      query: () => ({
+        url: 'postings/posts/',
+        providesTags: ['Posts']
       }),
     }),
   }), 
@@ -197,7 +217,9 @@ export const {
   useEditPostMutation,
   useEditCommentMutation,
   useEditReplyMutation,
-  useUpdateUserMutation
+  useUpdateUserMutation,
+  useGetUserFeedQuery,
+  useGetPostsQuery,
 } = api;
 
 export default api;

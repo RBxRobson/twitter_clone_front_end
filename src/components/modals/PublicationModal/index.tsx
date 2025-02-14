@@ -27,7 +27,7 @@ const PublicationModal = () => {
     };
   }, [isOpen]);
 
-  const formikPost = useFormPost(typeModal === 'edit' ? post! : undefined);
+  const formikPost = useFormPost({publication: typeModal === 'edit' ? post! : undefined});
   const formikComment = useFormComment();
   const formik = typeModal === 'comment' ? formikComment : formikPost;
   const useFormFormik = formik as FormikValues;

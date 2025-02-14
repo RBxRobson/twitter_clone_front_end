@@ -3,10 +3,7 @@ import styled, { css } from 'styled-components';
 import { ButtonPrimary, TextField } from '../../../styles/common';
 
 export const FormPost = styled.form`
-  ${({ theme }) => css`
-    padding-bottom: 12px;
-    border-bottom: 1px solid ${theme.colors.darkShades.d_55};
-  `}
+  padding-bottom: 12px;
 `;
 
 export const InputGroup = styled.div`
