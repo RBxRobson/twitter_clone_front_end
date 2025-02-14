@@ -1,0 +1,1 @@
+type ValidTags = 'UserPosts' | 'UserProfile' | 'UserFeed' | 'Posts';
