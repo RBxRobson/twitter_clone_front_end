@@ -1,10 +1,12 @@
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { 
   AddUSerIcon, 
   RemoveUserIcon, 
   TrashIcon, 
-  EditIcon 
+  EditIcon,
+  StatsPostIcon
 } from '../../../assets/images';
 import { 
   useDeletePostMutation 
@@ -29,6 +31,7 @@ const PostPopUp = ({
   originalPost,
 }: Props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const currentPost = originalPost && isRepost ? originalPost : post;
   const [deletePost, { isLoading: deleteLoading }] = useDeletePostMutation();
   const { followingState, loading, toggleFollow } = useFollow(currentPost.user_details.id, currentPost.is_following_author);
@@ -97,7 +100,18 @@ const PostPopUp = ({
     return null;
   };
 
-  return <S.PostPopUp onClick={(e) => e.stopPropagation()}>{setButtons()}</S.PostPopUp>;
+  return (
+    <S.PostPopUp onClick={(e) => e.stopPropagation()}>
+      {setButtons()}
+      <S.ButtonPopUp 
+        type="button"
+        onClick={() => navigate(`/posts/${post.id}/stats`)}
+      >
+        <img src={StatsPostIcon} alt="Editar" />
+        <span>Ver engajamento da postagem</span>
+      </S.ButtonPopUp>
+    </S.PostPopUp>
+  );
 };
 
 export default PostPopUp;

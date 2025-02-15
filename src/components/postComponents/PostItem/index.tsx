@@ -47,11 +47,12 @@ const PostItem = ({ post, user }: Props) => {
   const [repostCount, setRepostCount] = useState(displayPost.reposts_count);
   const [isReposted, setIsReposted] = useState(displayPost.is_reposted !== false);
   const isPostUser = user?.id === post.user_details.id && !isRepost;
-  const isRepostPostUser = !isPostUser && displayPost.user_details.id === user?.id;
   const isAnnexPostUser = 
     typeof post.original_post === 'object' &&
     post.original_post !== null && 
     post.original_post.user_details.id === user?.id;
+  // @ts-expect-error - O TypeScript não reconhece corretamente as validações anteriores
+  const isQuoteRepost = isRepost && post.original_post.post_type === 'quote';
   
   useEffect(() => {
     setLikeCount(displayPost.likes_count);
@@ -125,28 +126,26 @@ const PostItem = ({ post, user }: Props) => {
         <Content post={displayPost}>
           <>
             {post.post_type === 'quote' && <Quote publication={post.original_post as Post} />}
+            { 
+              // @ts-expect-error - O TypeScript não reconhece corretamente as validações anteriores
+              isQuoteRepost && <Quote publication={post.original_post.original_post as Post} />
+            }
           </>
         </Content>
       </S.WrapperContent>
-      <S.PostInteractions 
-        className={
-          isPostUser || isRepostPostUser ? 'cl-3' : ''
-        }
-      >
+      <S.PostInteractions>
         <Interaction
           title="Comentar"
           classInteraction="comment-icon"
           count={displayPost.comments_count}
           handleClick={(e) => handleInteractionClick('Comentar', e)}
         />
-        {!isPostUser && !isRepostPostUser && (
-          <Interaction
-            title="Repostar"
-            classInteraction={`${isReposted ? 'repost-icon-active' : ''} repost-icon`}
-            count={repostCount}
-            handleClick={(e) => handleInteractionClick('Repostar', e)}
-          />
-        )}
+        <Interaction
+          title="Repostar"
+          classInteraction={`${isReposted ? 'repost-icon-active' : ''} repost-icon`}
+          count={repostCount}
+          handleClick={(e) => handleInteractionClick('Repostar', e)}
+        />
         <Interaction
           title="Curtir"
           classInteraction={`${isLiked ? 'like-icon-active' : ''} like-icon`}
