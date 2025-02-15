@@ -24,10 +24,6 @@ export const PostInteractions = styled.div`
   grid-template-columns: 1fr 1fr 1fr 1fr;
   margin-left: 40px;
   margin-top: 6px;
-
-  &.cl-3 {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
 `;
 
 export const MoreButton = styled.button`
