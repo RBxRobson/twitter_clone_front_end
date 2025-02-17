@@ -26,7 +26,9 @@ const api = createApi({
         'getUsers',
         'updateUser',
         'getUserFeed',
-        'getPosts'
+        'getPosts',
+        'listFollowing',
+        'listFollowers'
       ].includes(endpoint);
       
       if (requiresAuth) {
@@ -86,12 +88,12 @@ const api = createApi({
         body: credentials,
       }),
     }),
-    listFollowing: builder.query<User[], number>({
+    listFollowing: builder.query<User[], number | string>({
       query: (userId) => ({
         url: `accounts/users/${userId}/following/`,
       }),
     }),
-    listFollowers: builder.query<User[], number>({
+    listFollowers: builder.query<User[], number | string>({
       query: (userId) => ({
         url: `accounts/users/${userId}/followers/`,
       }),
