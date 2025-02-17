@@ -1,18 +1,22 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { DateIcon } from '../../../assets/images';
 import { RootReducer } from '../../../store';
 import * as S from './styles';
 import { ButtonFollow } from '../../common';
 import { UpdateUserModal } from '../../modals';
+import { setIsFollowers, setTargetUser } from '../../../store/reducers/followers';
 
 type Props = {
   user: User;
 }
 
 const ProfileContent = ({ user }:Props) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { user: currentUser } = useSelector((state: RootReducer) => state.user);
@@ -33,6 +37,28 @@ const ProfileContent = ({ user }:Props) => {
     document.body.style.overflowY = 'auto';
   };
 
+  const handleClickFollowers = () => {
+    dispatch(setIsFollowers(true));
+    dispatch(setTargetUser({
+      name: user.name,
+      username: user.username
+    }));
+    setTimeout(() => {
+      navigate(`${location.pathname}/followers`);
+    }, 0); 
+  };
+  
+  const handleClickFollowing = () => {
+    dispatch(setIsFollowers(false));
+    dispatch(setTargetUser({
+      name: user.name,
+      username: user.username
+    }));
+    setTimeout(() => {
+      navigate(`${location.pathname}/followers`);
+    }, 0); 
+  };
+  
   return (
     <S.ProfileContent>
       {currentUser?.id === user.id ? (
@@ -53,11 +79,11 @@ const ProfileContent = ({ user }:Props) => {
         {formatDate(user.created_at)}
       </S.CreatedAt>
       <S.CountersWrapper>
-        <S.Counter href={`${location.pathname}/following`}>
+        <S.Counter onClick={handleClickFollowing}>
           <b>{user.following_count}</b>
           <span>Seguindo</span>
         </S.Counter>
-        <S.Counter href={`${location.pathname}/followers`}>
+        <S.Counter onClick={handleClickFollowers}>
           <b>{user.followers_count}</b>
           <span>Seguidores</span>
         </S.Counter>

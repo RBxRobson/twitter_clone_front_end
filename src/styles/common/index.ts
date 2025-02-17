@@ -7,6 +7,7 @@ import { BtnBack } from './ButtonBack';
 import { TextField } from './TextField';
 import { PopUp } from './PopUp';
 import { Label } from './Label';
+import { HeaderBlur } from './HeaderBlur';
 
 export { 
   ButtonPrimary,
@@ -17,5 +18,6 @@ export {
   BtnBack,
   TextField,
   PopUp,
-  Label
+  Label,
+  HeaderBlur
 };

@@ -1,34 +1,15 @@
 import { useSelector } from 'react-redux';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { useNavigate } from 'react-router-dom';
 
 import { BackIcon } from '../../assets/images';
-import { ButtonFollow, Loading, SmallAvatar, UserInfos } from '../../components/common';
+import { Loading, UsersList } from '../../components/common';
 import { useUserRecommendationsQuery } from '../../services/api';
 import { RootReducer } from '../../store';
 import * as S from './styles';
 
 const Recommendations = () => {
-  const navigate = useNavigate();
   const { user } = useSelector((state: RootReducer) => state.user);
-  const { 
-    data: usersData,
-    isLoading: usersLoading,
-  } = useUserRecommendationsQuery(user?.id ? user.id : skipToken);
-
-  if (usersLoading && !usersData) { 
-    return (
-      <S.CentralWrapper>
-        <S.Header>
-          <S.BtnBack href="/home" title="Voltar para página inicial">
-            <img src={BackIcon} alt="Ícone de voltar" />
-          </S.BtnBack>
-          <S.Title>Conectar</S.Title>
-        </S.Header>
-        <Loading />
-      </S.CentralWrapper>
-    );
-  };
+  const { data: usersData, isLoading } = useUserRecommendationsQuery(user?.id ?? skipToken);
 
   return (
     <S.CentralWrapper>
@@ -38,22 +19,13 @@ const Recommendations = () => {
         </S.BtnBack>
         <S.Title>Conectar</S.Title>
       </S.Header>
-      <S.RecommendationsList>
-        <h2>Sugerido para você</h2>
-        {usersData?.map((user) => (
-          <S.ListItem 
-            key={user.id}
-            onClick={() => navigate(`/profile/${user.username.replace('@', '')}`)}
-          >
-            <S.ItemContainer>
-              <SmallAvatar user={user}/>
-              <UserInfos user={user} />
-              <ButtonFollow userId={user.id} isFollowing={user.is_following}/>
-            </S.ItemContainer>
-            <p>{user.profile.bio}</p>
-          </S.ListItem>
-        ))}
-      </S.RecommendationsList>
+      {isLoading ? (
+        <Loading />
+      ) : usersData?.length === 0 ? (
+        <S.Title>Não há nenhum usuário disponível para seguir</S.Title>
+      ) : (
+        <UsersList users={usersData!} titleList="Sugestões para você" />
+      )}
     </S.CentralWrapper>
   );
 };

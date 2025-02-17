@@ -1,3 +1,4 @@
+import { ButtonHeaderBlur } from '../../common';
 import * as S from './styles';
 
 type Props = {
@@ -9,22 +10,16 @@ type Props = {
 const HeaderHome = ({ onClickForYou, onClickFollowing, isForYouActive }: Props) => {
   return (
     <S.HeaderContainer>
-      <S.ButtonHeader
-        type="button"
-        onClick={onClickForYou}
-      >
-        <S.TextButton className={isForYouActive ? 'active' : ''}>
-          Para você
-        </S.TextButton>
-      </S.ButtonHeader>
-      <S.ButtonHeader
-        type="button"
-        onClick={onClickFollowing}
-      >
-        <S.TextButton className={isForYouActive ? '' : 'active'}>
-          Seguindo
-        </S.TextButton>
-      </S.ButtonHeader>
+      <ButtonHeaderBlur 
+        handleClick={onClickForYou}
+        isActive={isForYouActive}
+        textButton="Para você"
+      />
+      <ButtonHeaderBlur 
+        handleClick={onClickFollowing}
+        isActive={isForYouActive ? false : true}
+        textButton="Seguindo"
+      />
     </S.HeaderContainer>
   );
 };

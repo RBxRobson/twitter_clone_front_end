@@ -4,6 +4,8 @@ import UserInfos from './UserInfos';
 import SmallAvatar from './SmallAvatar';
 import Loading from './Loading';
 import PostList from './PostList';
+import ButtonHeaderBlur from './ButtonHeaderBlur';
+import UsersList from './UsersList';
 import { useFollow } from './UseFollow';
 
 export { 
@@ -13,5 +15,7 @@ export {
   SmallAvatar,
   Loading,
   PostList,
-  useFollow
+  useFollow,
+  ButtonHeaderBlur,
+  UsersList
 };

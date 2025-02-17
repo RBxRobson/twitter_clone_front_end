@@ -10,10 +10,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setToken } from '../store/reducers/tokenJwt';
 import { RootReducer } from '../store';
-import { Auth, Home, Profile } from '../pages';
+import * as P from '../pages';
 import { removeUser } from '../store/reducers/user';
 import LayoutMain from '../components/layouts/LayoutMain';
-import Recommendations from '../pages/Recommendations';
 
 // Hook customizado para gerenciar expiração do token
 const useTokenExpiration = () => {
@@ -57,7 +56,7 @@ const PublicRoute = ({ isValidToken }: { isValidToken: boolean }) => {
     return <Navigate to="/home" replace />;
   }
 
-  return <Auth />;
+  return <P.Auth />;
 };
 
 const Routes = () => {
@@ -83,9 +82,10 @@ const Routes = () => {
           element={
             <LayoutMain>
               <RouterRoutes>
-                <Route path="/home" element={<Home />} />
-                <Route path="/recommendations" element={<Recommendations />} />
-                <Route path="/profile/:username" element={<Profile />} />
+                <Route path="/home" element={<P.Home />} />
+                <Route path="/recommendations" element={<P.Recommendations />} />
+                <Route path="/profile/:username" element={<P.Profile />} />
+                <Route path="/profile/:username/followers" element={<P.Followers />} />
               </RouterRoutes>
             </LayoutMain>
           }
