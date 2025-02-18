@@ -1,4 +1,4 @@
-type PostType = 'original' | 'repost' | 'quote';
+type PostType = 'original' | 'repost' | 'quote' | 'comment';
 
 interface UserDetails {
   id: number;
@@ -13,7 +13,7 @@ interface Post {
   user_details: UserDetails;
   content: string;
   post_type: PostType;
-  original_post: Post | number | null;
+  original_post: Post | null;
   created_at: string;
   updated_at: string;
   likes_count: number;
@@ -23,4 +23,8 @@ interface Post {
   is_liked: boolean;
   is_reposted: number | false;
   is_following_author: boolean;
+}
+
+interface PostPayload extends Omit<Post, 'original_post'> {
+  original_post: number | null;
 }
