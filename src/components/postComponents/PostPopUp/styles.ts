@@ -21,6 +21,7 @@ export const ButtonPopUp = styled.button`
     font-weight: ${theme.fontWeights.bold};
     display: flex;
     align-items: center;
+    width: 100%;
     gap: 12px;
     padding: 12px 16px;
     color: ${theme.colors.whiteShades.w_40};
