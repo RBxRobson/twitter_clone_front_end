@@ -113,7 +113,6 @@ export const useFormUpdateUser = (closeModal: () => void) => {
         await updateUser({ userId: user.id, userData: formData }).unwrap();
         await refetchCurrentUser();
         closeModal();
-        window.location.reload();
         resetForm();
       } catch (error: any) {
         if (error.data && typeof error.data === 'object') {
