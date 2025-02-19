@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 
-import { CentralWrapper, BtnBack, HeaderBlur } from '../../styles/common';
+import { CentralWrapper, HeaderBlur } from '../../styles/common';
 
-export { CentralWrapper, BtnBack };
+export { CentralWrapper };
 
 export const Header = styled(HeaderBlur)`
   display: flex;

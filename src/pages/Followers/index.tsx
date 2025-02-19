@@ -1,8 +1,7 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { BackIcon } from '../../assets/images';
-import { ButtonHeaderBlur, Loading, UsersList } from '../../components/common';
+import { ButtonBack, ButtonHeaderBlur, Loading, UsersList } from '../../components/common';
 import { useListFollowingQuery, useListFollowersQuery } from '../../services/api';
 import { RootReducer } from '../../store';
 import { setIsFollowers } from '../../store/reducers/followers';
@@ -10,7 +9,6 @@ import * as S from './styles';
 
 const Followers = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
   const { isFollowers, targetUser } = useSelector((state: RootReducer) => state.isFollowers);
   const username = location.pathname.split('/')[2]; 
@@ -25,10 +23,8 @@ const Followers = () => {
   return (
     <S.CentralWrapper>
       <S.Header>
-        <S.FlexContainer>
-          <S.BtnBack onClick={() => navigate(-1)} title="Voltar para página anterior">
-            <img src={BackIcon} alt="Ícone de voltar" />
-          </S.BtnBack>
+        <S.FlexContainer className="pd-left">
+          <ButtonBack />
           <S.Title>
             {targetUser?.name}
             <span>{targetUser?.username}</span>

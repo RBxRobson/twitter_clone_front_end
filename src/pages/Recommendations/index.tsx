@@ -1,8 +1,7 @@
 import { useSelector } from 'react-redux';
 import { skipToken } from '@reduxjs/toolkit/query';
 
-import { BackIcon } from '../../assets/images';
-import { Loading, UsersList } from '../../components/common';
+import { ButtonBack, Loading, UsersList } from '../../components/common';
 import { useUserRecommendationsQuery } from '../../services/api';
 import { RootReducer } from '../../store';
 import * as S from './styles';
@@ -14,9 +13,7 @@ const Recommendations = () => {
   return (
     <S.CentralWrapper>
       <S.Header>
-        <S.BtnBack href="/home" title="Voltar para página inicial">
-          <img src={BackIcon} alt="Ícone de voltar" />
-        </S.BtnBack>
+        <ButtonBack />
         <S.Title>Conectar</S.Title>
       </S.Header>
       {isLoading ? (
