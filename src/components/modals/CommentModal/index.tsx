@@ -2,12 +2,11 @@ import { FormikValues } from 'formik';
 
 import { SmallAvatar, UserInfos } from '../../common';
 import { TextField } from '../../../styles/common';
-import { Comment } from '../../../types/comment-details';
 import { Quote } from '../../postComponents';
 import * as S from './styles';
 
 type Props = {
-  publication: Post | Comment
+  publication: Post
   form: FormikValues
   user: User
 }
@@ -20,8 +19,6 @@ const CommentModal = ({ publication, form, user }: Props) => {
     form.handleChange(e);
   };
 
-  const isPost = publication && 'post_type' in publication;
-
   return (
     <>
       <S.PostContainer>
@@ -32,7 +29,7 @@ const CommentModal = ({ publication, form, user }: Props) => {
         <S.ContentPost>
           <UserInfos publication={publication} />
           <p>{publication.content}</p>
-          {isPost && publication.post_type === 'quote'  &&
+          {publication.post_type === 'quote'  &&
             <Quote isModal publication={publication.original_post as Post} />
           } 
         </S.ContentPost>

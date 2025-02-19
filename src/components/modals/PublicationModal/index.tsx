@@ -5,14 +5,14 @@ import { useEffect } from 'react';
 
 import { IconClose } from '../../../assets/images';
 import { RootReducer } from '../../../store';
-import { useFormComment, useFormPost } from '../../../utils/';
+import { useFormPost } from '../../../utils/';
 import { closePublicationModal } from '../../../store/reducers/publicationModal';
 import { CommentModal, EditModal, PostModal, QuoteModal } from '../';
 import * as S from './styles';
 
 const PublicationModal = () => {
   const dispatch = useDispatch();
-  const { typeModal, post, comment, isOpen } = useSelector((state: RootReducer) => state.publicationModal);
+  const { typeModal, post, isOpen } = useSelector((state: RootReducer) => state.publicationModal);
   const { user } = useSelector((state: RootReducer) => state.user);
 
   useEffect(() => {
@@ -27,9 +27,7 @@ const PublicationModal = () => {
     };
   }, [isOpen]);
 
-  const formikPost = useFormPost({publication: typeModal === 'edit' ? post! : undefined});
-  const formikComment = useFormComment();
-  const formik = typeModal === 'comment' ? formikComment : formikPost;
+  const formik = useFormPost({publication: typeModal === 'edit' ? post! : undefined});
   const useFormFormik = formik as FormikValues;
 
   const handleClickClose = () => {
@@ -37,10 +35,9 @@ const PublicationModal = () => {
   };
 
   const handleClickSubmit = () => {
-    if (typeModal === 'comment' && post) {
-      useFormFormik.setFieldValue('isReply', false);
-    } else if (typeModal === 'comment' && comment) {
-      useFormFormik.setFieldValue('isReply', true);
+    if (typeModal === 'comment') {
+      useFormFormik.setFieldValue('postType', 'comment');
+      useFormFormik.setFieldValue('original_post', post?.id);
     } else if (typeModal === 'post') {
       useFormFormik.setFieldValue('postType', 'original');
     } else if (typeModal === 'edit') {
@@ -73,14 +70,14 @@ const PublicationModal = () => {
         )}
         {typeModal === 'comment' && (
           <CommentModal 
-            publication={post ? post : comment!} 
+            publication={post!} 
             form={useFormFormik} 
             user={user!}
           />
         )}
         {typeModal === 'edit' && (
           <EditModal
-            publication={post ? post : comment!} 
+            publication={post!} 
             form={useFormFormik} 
             user={user!}
           />

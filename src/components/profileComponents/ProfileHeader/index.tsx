@@ -1,4 +1,4 @@
-import { BackIcon } from '../../../assets/images';
+import { ButtonBack } from '../../common';
 import * as S from './styles';
 
 type Props = {
@@ -8,9 +8,7 @@ type Props = {
 const ProfileHeader = ({ name }:Props) => {
   return (
     <S.Header>
-      <S.BtnBack href="/home" title="Voltar para página inicial">
-        <img src={BackIcon} alt="Ícone de voltar" />
-      </S.BtnBack>
+      <ButtonBack />
       <h2>{name}</h2>
     </S.Header>
   );

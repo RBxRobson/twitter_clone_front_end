@@ -3,11 +3,10 @@ import { useEffect } from 'react';
 
 import { SmallAvatar, UserInfos } from '../../common';
 import { TextField } from '../../../styles/common';
-import { Comment } from '../../../types/comment-details';
 import * as S from './styles';
 
 type Props = {
-  publication: Post | Comment
+  publication: Post
   form: FormikValues
   user: User
 }

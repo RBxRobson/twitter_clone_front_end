@@ -1,18 +1,19 @@
 import styled, { css } from 'styled-components';
 
-import { CentralWrapper, BtnBack, HeaderBlur } from '../../styles/common';
+import { CentralWrapper, HeaderBlur } from '../../styles/common';
 
-export { CentralWrapper, BtnBack };
+export { CentralWrapper };
 
 export const Header = styled(HeaderBlur)`
-  ${BtnBack} {
-    margin-left: 12px;
-  }
 `;
 
 export const FlexContainer = styled.div`
   display: flex;
   padding-top: 12px;
+
+  &.pd-left {
+    padding-left: 12px;
+  }
 `;
 
 export const Title = styled.h2`

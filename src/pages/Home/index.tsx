@@ -10,7 +10,7 @@ import * as S from './styles';
 const Home = () => {
   const [isForYouActive, setIsForYouActive] = useState(true);
   const [hasFetchedUserFeed, setHasFetchedUserFeed] = useState(false);
-  const { user } = useSelector((state: RootReducer) => state.user);
+  const { user, isLoading: loadingUser } = useSelector((state: RootReducer) => state.user);
 
   const { data: userFeedData, isLoading: loadingUserFeed } = useGetUserFeedQuery(undefined, {
     skip: isForYouActive && !hasFetchedUserFeed,
@@ -25,7 +25,7 @@ const Home = () => {
     }
   };
 
-  if (loadingUserFeed || loadingGeneralFeed) {
+  if (loadingUserFeed || loadingGeneralFeed || loadingUser) {
     return (
       <S.CentralWrapper>
         <HeaderHome 
@@ -33,7 +33,6 @@ const Home = () => {
           onClickFollowing={handleClickFollowing}
           onClickForYou={() => setIsForYouActive(true)}
         />
-        <FormPost />
         <S.LoadingContainer>
           <Loading />
         </S.LoadingContainer>
@@ -58,7 +57,7 @@ const Home = () => {
             && user?.following_count === 0
             && 'Você ainda não segue ninguém.'}
             {userFeedData?.length === 0 
-            && user?.following_count! >= 0
+            && user?.following_count! > 0
             && 'Seus seguidores não possuem postagens no momento'}
           </>
         )

@@ -1,14 +1,11 @@
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import { useCreatePostMutation, useEditPostMutation } from '../../../services/api';
 import { closePublicationModal } from '../../../store/reducers/publicationModal';
-import { RootReducer } from '../../../store';
 
 export type FormPost = {
-  postType: 'original' | 'quote' | 'repost';
+  postType: PostType;
   content: string;
   original_post?: number
 }
@@ -20,14 +17,10 @@ type Props = {
 
 export const useFormPost = ({publication, notModal = false}:Props): ExtendedFormikProps<FormPost> => {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const { user } = useSelector((state: RootReducer) => state.user);
-  const username = user!.username.replace('@', '');
   const [createPost, { isLoading: loadingCreate }] = useCreatePostMutation();
   const [editPost, { isLoading: loadingEdit }] = useEditPostMutation();
 
   const isLoading = loadingCreate || loadingEdit;
-  const tags = location.pathname.includes(username) ? ['UserPosts'] : ['Posts', 'UserPosts'];
 
   const formik = useFormik<FormPost>({
     initialValues: {
@@ -38,7 +31,7 @@ export const useFormPost = ({publication, notModal = false}:Props): ExtendedForm
       try {
         // Validação customizada para o campo content
         if (
-          (values.postType === 'original' || values.postType === 'quote') &&
+          (values.postType !== 'repost') &&
           !values.content.trim()
         ) {
           setFieldError('content', 'O conteúdo é obrigatório para esse tipo de postagem.');
@@ -46,11 +39,10 @@ export const useFormPost = ({publication, notModal = false}:Props): ExtendedForm
         }
     
         if (publication) {
-          // Chama a API para criar o post
+          // Chama a API para editar o post
           await editPost({
             postId: publication.id,
             postData: {content : values.content},
-            tags: tags
           }).unwrap();
         } else {
           // Chama a API para criar o post
@@ -58,7 +50,6 @@ export const useFormPost = ({publication, notModal = false}:Props): ExtendedForm
             post_type: values.postType,
             content: values.content,
             original_post: values.original_post,
-            tags: tags
           }).unwrap();
         }
     

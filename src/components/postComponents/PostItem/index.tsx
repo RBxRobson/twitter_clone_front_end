@@ -39,20 +39,20 @@ const PostItem = ({ post, user }: Props) => {
   const [deletePost] = useDeletePostMutation();
   const [isOpenPopUp, setIsOpenPopUp] = useState(false);
   
-  const isRepost = post.post_type === 'repost' && typeof post.original_post === 'object';
-  const displayPost = isRepost ? (post.original_post as Post) : post;
+  const isRepost = post.post_type === 'repost' && post.original_post !== null;
+  const displayPost = isRepost ? post.original_post! : post;
   
   const [likeCount, setLikeCount] = useState(displayPost.likes_count);
   const [isLiked, setIsLiked] = useState(displayPost.is_liked);
   const [repostCount, setRepostCount] = useState(displayPost.reposts_count);
   const [isReposted, setIsReposted] = useState(displayPost.is_reposted !== false);
-  const isPostUser = user?.id === post.user_details.id && !isRepost;
+  const isPostUser = 
+    user?.id === post.user_details.id && !isRepost;
   const isAnnexPostUser = 
-    typeof post.original_post === 'object' &&
     post.original_post !== null && 
     post.original_post.user_details.id === user?.id;
-  // @ts-expect-error - O TypeScript não reconhece corretamente as validações anteriores
-  const isQuoteRepost = isRepost && post.original_post.post_type === 'quote';
+  
+  const isQuoteRepost = isRepost && post.original_post?.post_type === 'quote';
   
   useEffect(() => {
     setLikeCount(displayPost.likes_count);
@@ -108,7 +108,7 @@ const PostItem = ({ post, user }: Props) => {
             isPostUser={isPostUser} 
             isRepost={isRepost}
             isAnnexPostUser={isAnnexPostUser}
-            originalPost={isRepost ? (post.original_post as Post) : null}
+            originalPost={isRepost ? post.original_post  : null}
           />
           <S.ClosePopUp 
             onClick={
@@ -127,8 +127,7 @@ const PostItem = ({ post, user }: Props) => {
           <>
             {post.post_type === 'quote' && <Quote publication={post.original_post as Post} />}
             { 
-              // @ts-expect-error - O TypeScript não reconhece corretamente as validações anteriores
-              isQuoteRepost && <Quote publication={post.original_post.original_post as Post} />
+              isQuoteRepost && <Quote publication={post.original_post?.original_post as Post} />
             }
           </>
         </Content>

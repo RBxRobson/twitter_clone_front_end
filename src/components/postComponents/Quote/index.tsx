@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
 import { SmallAvatar, UserInfos } from '../../common';
-import { Comment } from '../../../types/comment-details';
 import * as S from './styles';
 
 type Props = {
-  publication: Post | Comment;
+  publication: Post;
   isModal?: boolean;
 };
 
@@ -14,11 +13,7 @@ const Quote = ({ publication, isModal = false }: Props) => {
 
   const handleClick = (event: React.MouseEvent) => {
     event.stopPropagation();
-    if ('post_type' in publication) {
-      navigate(`/post/${publication.id}`);
-    } else {
-      navigate(`/post/${publication.post}/comment/${publication.id}`);
-    }
+    navigate(`/post/${publication.id}`);
   };
 
   if (isModal) {

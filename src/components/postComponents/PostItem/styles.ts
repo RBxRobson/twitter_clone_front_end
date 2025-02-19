@@ -29,8 +29,8 @@ export const PostInteractions = styled.div`
 export const MoreButton = styled.button`
   ${({ theme }) => css`
     position: absolute;
-    top: 18px;
-    right: 16px;
+    top: 6px;
+    right: 8px;
     cursor: pointer;
     border: none;
     background-color: transparent;

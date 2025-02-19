@@ -38,7 +38,7 @@ const PostPopUp = ({
 
   const handleDeletePost = async () => {
     try {
-      await deletePost(isAnnexPostUser ? originalPost?.id : post.id).unwrap();
+      await deletePost(isRepost ? originalPost?.id : post.id).unwrap();
     } catch {
       alert('Erro desconhecido ao deletar o post, tente novamente mais tarde.');
     }
