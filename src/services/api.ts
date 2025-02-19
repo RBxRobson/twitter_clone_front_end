@@ -3,47 +3,42 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootReducer } from '../store'; 
 import { setUser } from '../store/reducers/user';
 
+const BASE_URL = 'https://rbxrobson.pythonanywhere.com/';
+
+const requiresAuthEndpoints = new Set([
+  'fetchCurrentUser',
+  'createPost',
+  'editPost',
+  'deletePost',
+  'followUser',
+  'unfollowUser',
+  'userRecommendations',
+  'likePost',
+  'getUserPosts',
+  'getUser',
+  'getUsers',
+  'updateUser',
+  'getUserFeed',
+  'getPosts',
+  'listFollowing',
+  'listFollowers'
+]);
+
 const api = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://rbxrobson.pythonanywhere.com/',
+    baseUrl: BASE_URL,
     prepareHeaders: (headers, { getState, endpoint }) => {
-      // Verifica se o endpoint atual requer autenticação
-      const requiresAuth = [
-        'fetchCurrentUser',
-        'createPost',
-        'deletePost',
-        'followUser',
-        'unfollowUser',
-        'userRecommendations',
-        'likePost',
-        'getUserPosts',
-        'createComment',
-        'createReply',
-        'editPost',
-        'editReply',
-        'editComment',
-        'getUser',
-        'getUsers',
-        'updateUser',
-        'getUserFeed',
-        'getPosts',
-        'listFollowing',
-        'listFollowers'
-      ].includes(endpoint);
-      
-      if (requiresAuth) {
-        // Acessa o token armazenado no Redux
+      if (requiresAuthEndpoints.has(endpoint)) {
         const token = (getState() as RootReducer).tokenJwt.token;
-        
-        if (token) {
-          headers.set('Authorization', `Bearer ${token}`);
-        }
+        if (token) headers.set('Authorization', `Bearer ${token}`);
       }
-
       return headers;
     },
   }),
-  tagTypes: ['UserPosts', 'UserProfile', 'UserFeed', 'Posts'],
+  tagTypes: [
+    'UserPosts', 'UserProfile', 'UserFeed', 'Posts',
+    'ListFollowing', 'ListFollowers', 'UserRecommendations'
+  ],
   endpoints: (builder) => ({
     fetchCurrentUser: builder.query<User, void>({
       query: () => 'accounts/users/me/',
@@ -52,19 +47,15 @@ const api = createApi({
         dispatch(setUser(data));
       }
     }),
-    getUsers: builder.query<User[], void>({
-      query: () => 'accounts/users/',
+    getUsers: builder.query<User[], void>({ 
+      query: () => 'accounts/users/' 
     }),
     getUser: builder.query<User, number | string>({
-      query: (user) => ({
-        url: `accounts/users/${user}/`,
-        providesTags: ['UserProfile']
-      }),
+      query: (user) => `accounts/users/${user}/`,
+      providesTags: ['UserProfile']
     }),
     getUserPosts: builder.query<Post[], number | string>({
-      query: (user) => ({
-        url: `accounts/users/${user}/posts/`
-      }),
+      query: (user) => `accounts/users/${user}/posts/`,
       providesTags: ['UserPosts']
     }),
     createUser: builder.mutation({
@@ -79,7 +70,8 @@ const api = createApi({
         url: `accounts/users/${userId}/`,
         method: 'PUT',
         body: userData,
-      })
+      }),
+      invalidatesTags: ['UserProfile', 'UserPosts']
     }),
     loginUser: builder.mutation({
       query: (credentials) => ({
@@ -89,31 +81,38 @@ const api = createApi({
       }),
     }),
     listFollowing: builder.query<User[], number | string>({
-      query: (userId) => ({
-        url: `accounts/users/${userId}/following/`,
-      }),
+      query: (userId) => `accounts/users/${userId}/following/`,
+      providesTags: ['ListFollowing']
     }),
     listFollowers: builder.query<User[], number | string>({
-      query: (userId) => ({
-        url: `accounts/users/${userId}/followers/`,
-      }),
+      query: (userId) => `accounts/users/${userId}/followers/`,
+      providesTags: ['ListFollowers']
     }),
     userRecommendations: builder.query<User[], number>({
-      query: (userId) => ({
-        url: `accounts/users/${userId}/recommendations/`,
-      }),
+      query: (userId) => `accounts/users/${userId}/recommendations/`,
+      providesTags: ['UserRecommendations']
     }),
     followUser: builder.mutation({
       query: (userId: number) => ({
         url: `accounts/users/${userId}/follow/`,
         method: 'POST',
       }),
+      invalidatesTags: ['UserFeed', 'ListFollowers', 'ListFollowing', 'UserRecommendations']
     }),
     unfollowUser: builder.mutation({
       query: (userId: number) => ({
         url: `accounts/users/${userId}/unfollow/`,
         method: 'POST',
       }),
+      invalidatesTags: ['UserFeed', 'ListFollowers', 'ListFollowing', 'UserRecommendations']
+    }),
+    getUserFeed: builder.query<Post[], void>({
+      query: () => 'postings/feed/',
+      providesTags: ['UserFeed']
+    }),
+    getPosts: builder.query<Post[], void>({
+      query: () => 'postings/posts/',
+      providesTags: ['Posts']
     }),
     createPost: builder.mutation({
       query: (postData) => ({
@@ -121,10 +120,7 @@ const api = createApi({
         method: 'POST',
         body: postData,
       }),
-      invalidatesTags: (result, error, { tags }: { tags?: ValidTags[] }) => {
-        if (!result || error || !tags?.length) return [];
-        return tags;
-      }
+      invalidatesTags: ['Posts', 'UserFeed', 'UserPosts']
     }),
     editPost: builder.mutation({
       query: ({ postId, postData }) => ({
@@ -132,51 +128,14 @@ const api = createApi({
         method: 'PUT',
         body: postData,
       }),
-      invalidatesTags: (result, error, { tags }: { tags?: ValidTags[] }) => {
-        if (!result || error || !tags?.length) return [];
-        return tags;
-      }
-    }),
-    createComment: builder.mutation({
-      query: ({ postId, commentData }) => {
-        return {
-          url: `postings/posts/${postId}/comments/`,
-          method: 'POST',
-          body: commentData,
-        };
-      },
-    }),
-    editComment: builder.mutation({
-      query: ({ postId, commentData, commentId }) => {
-        return {
-          url: `postings/posts/${postId}/comments/${commentId}/`,
-          method: 'PUT',
-          body: commentData,
-        };
-      },
-    }),
-    createReply: builder.mutation({
-      query: ({postId, commentId, commentData}) => ({
-        url: `postings/posts/${postId}/comments/${commentId}/replies/`,
-        method: 'POST',
-        body: commentData,
-      }),
-    }),
-    editReply: builder.mutation({
-      query: ({ postId, commentData, commentId, replyId }) => {
-        return {
-          url: `postings/posts/${postId}/comments/${commentId}/replies/${replyId}/`,
-          method: 'PUT',
-          body: commentData,
-        };
-      },
+      invalidatesTags: ['Posts', 'UserFeed', 'UserPosts']
     }),
     deletePost: builder.mutation({
       query: (postId) => ({
         url: `postings/posts/${postId}/`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['UserPosts']
+      invalidatesTags: ['UserPosts', 'Posts', 'UserFeed']
     }),
     likePost: builder.mutation({
       query: (postId: number) => ({
@@ -184,44 +143,16 @@ const api = createApi({
         method: 'POST',
       }),
     }),
-    getUserFeed: builder.query<Post[], void>({
-      query: () => ({
-        url: 'postings/feed/',
-        providesTags: ['UserProfile']
-      }),
-    }),
-    getPosts: builder.query<Post[], void>({
-      query: () => ({
-        url: 'postings/posts/',
-        providesTags: ['Posts']
-      }),
-    }),
-  }), 
+  }),
 });
 
 export const { 
-  useCreateUserMutation, 
-  useLoginUserMutation, 
-  useFetchCurrentUserQuery,
-  useCreatePostMutation,
-  useGetUsersQuery,
-  useFollowUserMutation,
-  useUnfollowUserMutation,
-  useListFollowingQuery,
-  useListFollowersQuery,
-  useUserRecommendationsQuery,
-  useGetUserQuery,
-  useGetUserPostsQuery,
-  useLikePostMutation,
-  useDeletePostMutation,
-  useCreateCommentMutation,
-  useCreateReplyMutation,
-  useEditPostMutation,
-  useEditCommentMutation,
-  useEditReplyMutation,
-  useUpdateUserMutation,
-  useGetUserFeedQuery,
-  useGetPostsQuery,
+  useCreateUserMutation, useLoginUserMutation, useFetchCurrentUserQuery,
+  useCreatePostMutation, useGetUsersQuery, useFollowUserMutation,
+  useUnfollowUserMutation, useListFollowingQuery, useListFollowersQuery,
+  useUserRecommendationsQuery, useGetUserQuery, useGetUserPostsQuery,
+  useLikePostMutation, useDeletePostMutation, useEditPostMutation,
+  useUpdateUserMutation, useGetUserFeedQuery, useGetPostsQuery,
 } = api;
 
 export default api;
