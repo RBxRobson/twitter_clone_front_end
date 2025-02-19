@@ -1,9 +1,5 @@
 import styled, { css } from 'styled-components';
 
-import { BtnBack } from '../../../pages/Recommendations/styles';
-
-export { BtnBack };
-
 export const Header = styled.header`
   position: sticky;
   top: 0;
