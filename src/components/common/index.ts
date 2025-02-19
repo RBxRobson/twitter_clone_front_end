@@ -6,6 +6,7 @@ import Loading from './Loading';
 import PostList from './PostList';
 import ButtonHeaderBlur from './ButtonHeaderBlur';
 import UsersList from './UsersList';
+import ButtonBack from './ButtonBack';
 import { useFollow } from './UseFollow';
 
 export { 
@@ -17,5 +18,6 @@ export {
   PostList,
   useFollow,
   ButtonHeaderBlur,
-  UsersList
+  UsersList,
+  ButtonBack
 };

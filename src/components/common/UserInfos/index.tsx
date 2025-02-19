@@ -1,12 +1,11 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Comment } from '../../../types/comment-details';
 import { formatTimeAgo } from '../../../utils/functions/formatedTimeAgo';
 import * as S from './styles';
 
 type Props = {
   user?: User;
-  publication?: Post | Comment;
+  publication?: Post;
   navigateProfile?: boolean;
 };
 
