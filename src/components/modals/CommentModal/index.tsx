@@ -23,7 +23,10 @@ const CommentModal = ({ publication, form, user }: Props) => {
     <>
       <S.PostContainer>
         <div>
-          <SmallAvatar postUser={publication.user_details}/>
+          <SmallAvatar 
+            avatar={publication.user_details.avatar} 
+            username={publication.user_details.username} 
+          />
           <S.VerticalLine></S.VerticalLine>
         </div>
         <S.ContentPost>
@@ -39,7 +42,7 @@ const CommentModal = ({ publication, form, user }: Props) => {
         <p>Respondendo a <span>{publication.user_details.username}</span></p>
       </S.ReplyWrapper>
       <S.InputGroup>
-        <SmallAvatar user={user} />
+        <SmallAvatar avatar={user.profile.avatar} username={user.username} />
         <TextField
           placeholder="Adicione seu comentário" 
           maxLength={280}

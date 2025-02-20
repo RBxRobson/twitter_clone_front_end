@@ -21,7 +21,7 @@ const QuoteModal = ({form, user, post}: Props) => {
 
   return (
     <S.FormWrapper>
-      <SmallAvatar user={user} />
+      <SmallAvatar avatar={user.profile.avatar} username={user.username} />
       <S.InputGroup>
         <TextField 
           placeholder="Adicione suas ideias" 
