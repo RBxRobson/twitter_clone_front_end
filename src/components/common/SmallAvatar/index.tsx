@@ -1,25 +1,15 @@
 import * as S from './styles';
 
 type Props = {
-  user?: User;
-  postUser?: UserDetails;
+  avatar: string;
+  username: string;
 };
 
-const SmallAvatar = ({ user, postUser }: Props) => {
-  if (postUser) {
-    return (
-      <S.SmallAvatar
-        onClick={(e) => e.stopPropagation()}
-        src={`https://rbxrobson.pythonanywhere.com${postUser.avatar}`} 
-        alt={`Foto de perfil do ${postUser.username}`}
-      />
-    );
-  }
-
+const SmallAvatar = ({ username, avatar }: Props) => {
   return (
     <S.SmallAvatar
-      src={`https://rbxrobson.pythonanywhere.com${user?.profile.avatar}`} 
-      alt={`Foto de perfil do ${user?.name}`}
+      src={`https://rbxrobson.pythonanywhere.com${avatar}`} 
+      alt={`Foto de perfil do ${username}`}
     />
   );
 };
