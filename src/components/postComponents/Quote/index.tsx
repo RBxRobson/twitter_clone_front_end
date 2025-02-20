@@ -20,7 +20,10 @@ const Quote = ({ publication, isModal = false }: Props) => {
     return (
       <S.Wrapper>
         <S.QuoteHeader>
-          <SmallAvatar postUser={publication.user_details} />
+          <SmallAvatar 
+            avatar={publication.user_details.avatar} 
+            username={publication.user_details.username} 
+          />
           <UserInfos publication={publication} />
         </S.QuoteHeader>
         <S.ContentPost>{publication.content}</S.ContentPost>
@@ -31,7 +34,10 @@ const Quote = ({ publication, isModal = false }: Props) => {
   return (
     <S.Wrapper onClick={handleClick}>
       <S.QuoteHeader>
-        <SmallAvatar postUser={publication.user_details} />
+        <SmallAvatar 
+          avatar={publication.user_details.avatar} 
+          username={publication.user_details.username} 
+        />
         <UserInfos publication={publication} navigateProfile />
       </S.QuoteHeader>
       <S.ContentPost>{publication.content}</S.ContentPost>

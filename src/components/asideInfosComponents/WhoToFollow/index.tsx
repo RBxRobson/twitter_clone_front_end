@@ -57,7 +57,7 @@ const WhoToFollow = () => {
           key={user.id} 
           onClick={() => navigate(`/profile/${user.username.replace('@', '')}`)}
         >
-          <SmallAvatar user={user} />
+          <SmallAvatar avatar={user.profile.avatar} username={user.username} />
           <UserInfos user={user} />
           <ButtonFollow userId={user.id} isFollowing={user.is_following}/>
         </S.ListItem>

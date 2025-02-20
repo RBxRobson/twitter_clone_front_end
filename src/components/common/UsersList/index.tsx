@@ -23,7 +23,7 @@ const UsersList = ({ users, titleList }: Props) => {
           onClick={() => navigate(`/profile/${user.username.replace('@', '')}`)}
         >
           <S.UserContainer>
-            <SmallAvatar user={user}/>
+            <SmallAvatar avatar={user.profile.avatar} username={user.username} />
             <UserInfos user={user} />
             {currentUser?.id !== user.id &&
               <ButtonFollow userId={user.id} isFollowing={user.is_following}/>

@@ -19,7 +19,7 @@ const PostModal = ({form, user}: Props) => {
 
   return (
     <S.InputGroup>
-      <SmallAvatar user={user} />
+      <SmallAvatar avatar={user.profile.avatar} username={user.username} />
       <TextField
         placeholder="O que está acontecendo?!" 
         maxLength={280}

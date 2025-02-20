@@ -27,7 +27,7 @@ const User = () => {
 
   return (
     <S.User onClick={handleClickPopUp}>
-      <SmallAvatar user={user!} />
+      <SmallAvatar avatar={user!.profile.avatar} username={user!.username} />
       <UserInfos user={user!} />
       <S.IconEllipsis>...</S.IconEllipsis>
     </S.User>

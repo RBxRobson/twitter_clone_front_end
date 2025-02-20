@@ -105,7 +105,11 @@ const PostPopUp = ({
       {setButtons()}
       <S.ButtonPopUp 
         type="button"
-        onClick={() => navigate(`/posts/${post.id}/stats`)}
+        onClick={() => navigate(
+          isRepost && originalPost 
+            ? `/posts/${originalPost.id}/stats` 
+            : `/posts/${post.id}/stats`
+        )}
       >
         <img src={StatsPostIcon} alt="Editar" />
         <span>Ver engajamento da postagem</span>

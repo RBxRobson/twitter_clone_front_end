@@ -29,7 +29,7 @@ const EditModal = ({ publication, form, user }: Props) => {
 
   return (
     <S.WrapperEdit>
-      <SmallAvatar user={user} />
+      <SmallAvatar avatar={user.profile.avatar} username={user.username} />
       <S.InputGroup>
         <UserInfos publication={publication} />
         <TextField

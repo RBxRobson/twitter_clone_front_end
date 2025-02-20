@@ -6,23 +6,16 @@ import { setUser } from '../store/reducers/user';
 const BASE_URL = 'https://rbxrobson.pythonanywhere.com/';
 
 const requiresAuthEndpoints = new Set([
-  'fetchCurrentUser',
-  'createPost',
-  'editPost',
-  'deletePost',
-  'followUser',
-  'unfollowUser',
-  'userRecommendations',
-  'likePost',
-  'getUserPosts',
-  'getUser',
-  'getUsers',
-  'updateUser',
-  'getUserFeed',
-  'getPosts',
-  'listFollowing',
-  'listFollowers'
+  'fetchCurrentUser', 'createPost', 'editPost', 'deletePost', 
+  'followUser', 'unfollowUser', 'userRecommendations', 'likePost',
+  'getUserPosts', 'getUser', 'getUsers', 'updateUser', 'getUserFeed', 
+  'getPosts', 'listFollowing', 'listFollowers', 'getPostQuotes', 'getPostReposts'
 ]);
+
+export const tags = [
+  'UserPosts', 'UserProfile', 'UserFeed', 'Posts',
+  'ListFollowing', 'ListFollowers', 'UserRecommendations'
+];
 
 const api = createApi({
   baseQuery: fetchBaseQuery({
@@ -35,10 +28,7 @@ const api = createApi({
       return headers;
     },
   }),
-  tagTypes: [
-    'UserPosts', 'UserProfile', 'UserFeed', 'Posts',
-    'ListFollowing', 'ListFollowers', 'UserRecommendations'
-  ],
+  tagTypes: tags,
   endpoints: (builder) => ({
     fetchCurrentUser: builder.query<User, void>({
       query: () => 'accounts/users/me/',
@@ -48,7 +38,7 @@ const api = createApi({
       }
     }),
     getUsers: builder.query<User[], void>({ 
-      query: () => 'accounts/users/' 
+      query: () => 'accounts/users/'
     }),
     getUser: builder.query<User, number | string>({
       query: (user) => `accounts/users/${user}/`,
@@ -56,7 +46,7 @@ const api = createApi({
     }),
     getUserPosts: builder.query<Post[], number | string>({
       query: (user) => `accounts/users/${user}/posts/`,
-      providesTags: ['UserPosts']
+      providesTags: ['UserPosts'],
     }),
     createUser: builder.mutation({
       query: (userData) => ({
@@ -114,6 +104,18 @@ const api = createApi({
       query: () => 'postings/posts/',
       providesTags: ['Posts']
     }),
+    getPostQuotes: builder.query<Post[], string>({
+      query: (postId) => ({
+        url: `postings/posts/${postId}/quotes/`,
+        method: 'GET',
+      }),
+    }),
+    getPostReposts: builder.query<User[], string>({
+      query: (postId) => ({
+        url: `postings/posts/${postId}/reposts/`,
+        method: 'GET',
+      }),
+    }),
     createPost: builder.mutation({
       query: (postData) => ({
         url: 'postings/posts/',
@@ -153,6 +155,7 @@ export const {
   useUserRecommendationsQuery, useGetUserQuery, useGetUserPostsQuery,
   useLikePostMutation, useDeletePostMutation, useEditPostMutation,
   useUpdateUserMutation, useGetUserFeedQuery, useGetPostsQuery,
+  useGetPostQuotesQuery, useGetPostRepostsQuery
 } = api;
 
 export default api;

@@ -20,8 +20,8 @@ const FormPost = () => {
     <S.FormPost onSubmit={formik.handleSubmit}>
       <S.InputGroup>
         {isLoading 
-          ? <Loading size='small'/> 
-          : <SmallAvatar user={user!} />
+          ? <Loading size="small" /> 
+          : <SmallAvatar avatar={user!.profile.avatar} username={user!.username} />
         }
         <S.ModTextField
           placeholder="O que está acontecendo?!" 

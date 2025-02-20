@@ -1,14 +1,11 @@
 import styled, { css } from 'styled-components';
 
 export const UsersList = styled.ul`
-  ${({ theme }) => css`
-    display: flex;
-    flex-direction: column;
-    gap: 26px;
-    padding: 22px 16px;
-    text-align: start;
-    border-top: 1px solid ${theme.colors.darkShades.d_55};
-  `}
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 22px 16px;
+  text-align: start;
 `;
 
 export const User = styled.li`

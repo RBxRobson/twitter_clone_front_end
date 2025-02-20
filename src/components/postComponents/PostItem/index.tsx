@@ -121,7 +121,10 @@ const PostItem = ({ post, user }: Props) => {
         </>
       )}
       <S.WrapperContent>
-        <SmallAvatar postUser={displayPost.user_details} />
+        <SmallAvatar 
+          avatar={displayPost.user_details.avatar} 
+          username={displayPost.user_details.username} 
+        />
         {isRepost && <RepostWarning username={post.user_details.username} />}
         <Content post={displayPost}>
           <>

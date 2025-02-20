@@ -86,6 +86,7 @@ const Routes = () => {
                 <Route path="/recommendations" element={<P.Recommendations />} />
                 <Route path="/profile/:username" element={<P.Profile />} />
                 <Route path="/profile/:username/followers" element={<P.Followers />} />
+                <Route path="/posts/:post/stats" element={<P.PostStats />} />
               </RouterRoutes>
             </LayoutMain>
           }

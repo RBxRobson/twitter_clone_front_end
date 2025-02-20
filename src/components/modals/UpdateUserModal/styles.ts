@@ -109,6 +109,7 @@ export const AvatarContainer = styled.div`
   width: 100%;
   max-width: 120px;
   max-height: 120px;
+  height: 100%;
   border-radius: 50%;
   overflow: hidden;
   border: 4px solid black;
