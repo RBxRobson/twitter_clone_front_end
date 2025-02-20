@@ -5,6 +5,9 @@ import { CentralWrapper, HeaderBlur } from '../../styles/common';
 export { CentralWrapper };
 
 export const Header = styled(HeaderBlur)`
+  ${({ theme }) => css`
+    border-bottom: 1px solid ${theme.colors.darkShades.d_55};
+  `}
 `;
 
 export const FlexContainer = styled.div`
@@ -36,6 +39,5 @@ export const Warning = styled.h3`
     padding-top: 26px;
     font-size: ${theme.fontSizes.md};
     text-align: center;
-    border-top: 1px solid ${theme.colors.darkShades.d_55};
   `}
 `;
