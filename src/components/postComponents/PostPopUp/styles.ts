@@ -67,3 +67,13 @@ export const UsernameWrapper = styled.div`
     overflow: hidden;
   }
 `;
+
+export const ClosePopUp = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  height: 100dvh;
+  width: 100dvw;
+  cursor: default;
+`;
