@@ -4,6 +4,7 @@ import tokenJwt from './tokenJwt';
 import popUpExit from './popUpExit';
 import publicationModal from './publicationModal';
 import isFollowers from './followers';
+import currentPost from './currentPost';
 
 export {
   auth,
@@ -11,5 +12,6 @@ export {
   tokenJwt,
   user,
   publicationModal,
-  isFollowers
+  isFollowers, 
+  currentPost
 };

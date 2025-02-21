@@ -8,7 +8,7 @@ import api from '../services/api';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user', 'tokenJwt', 'isFollowers'],
+  whitelist: ['user', 'tokenJwt', 'isFollowers', 'currentPost'],
 };
 
 const rootReducer = combineReducers({
@@ -18,6 +18,7 @@ const rootReducer = combineReducers({
   popUpExit: R.popUpExit,
   publicationModal: R.publicationModal,
   isFollowers: R.isFollowers,
+  currentPost: R.currentPost,
   [api.reducerPath]: api.reducer,
 });
 
