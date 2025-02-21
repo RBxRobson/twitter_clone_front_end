@@ -1,4 +1,4 @@
-import Interaction from './Interaction';
+import Interactions from './Interactions';
 import Content from './Content';
 import RepostWarning from './RepostWarning';
 import Quote from './Quote';
@@ -6,7 +6,7 @@ import PostItem from './PostItem';
 import PostPopUp from './PostPopUp';
 
 export { 
-  Interaction,
+  Interactions,
   Content, 
   RepostWarning, 
   Quote,
