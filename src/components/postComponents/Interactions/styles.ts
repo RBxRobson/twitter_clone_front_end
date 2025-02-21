@@ -1,5 +1,12 @@
 import styled, { css } from 'styled-components';
 
+export const PostInteractions = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-left: 40px;
+  margin-top: 6px;
+`;
+
 export const Interaction = styled.button`
   ${({ theme }) => css`
     cursor: pointer;
