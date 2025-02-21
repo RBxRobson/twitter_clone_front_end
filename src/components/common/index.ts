@@ -7,7 +7,9 @@ import PostList from './PostList';
 import ButtonHeaderBlur from './ButtonHeaderBlur';
 import UsersList from './UsersList';
 import ButtonBack from './ButtonBack';
+import MoreButton from './MoreButton';
 import { useFollow } from './UseFollow';
+import { usePostUtils } from './usePostUtils';
 
 export { 
   InfosBar, 
@@ -19,5 +21,7 @@ export {
   useFollow,
   ButtonHeaderBlur,
   UsersList,
-  ButtonBack
+  ButtonBack,
+  MoreButton,
+  usePostUtils
 };
