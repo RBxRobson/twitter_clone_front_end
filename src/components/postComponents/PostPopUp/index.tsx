@@ -13,6 +13,7 @@ import {
 } from '../../../services/api';
 import { openEditModal } from '../../../store/reducers/publicationModal';
 import { useFollow } from '../../../components/common';
+import { closePostPopUp } from '../../../store/reducers/currentPost';
 import * as S from './styles';
 
 type Props = {
@@ -101,20 +102,30 @@ const PostPopUp = ({
   };
 
   return (
-    <S.PostPopUp onClick={(e) => e.stopPropagation()}>
-      {setButtons()}
-      <S.ButtonPopUp 
-        type="button"
-        onClick={() => navigate(
-          isRepost && originalPost 
-            ? `/posts/${originalPost.id}/stats` 
-            : `/posts/${post.id}/stats`
-        )}
-      >
-        <img src={StatsPostIcon} alt="Editar" />
-        <span>Ver engajamento da postagem</span>
-      </S.ButtonPopUp>
-    </S.PostPopUp>
+    <>
+      <S.PostPopUp onClick={(e) => e.stopPropagation()}>
+        {setButtons()}
+        <S.ButtonPopUp 
+          type="button"
+          onClick={() => navigate(
+            isRepost && originalPost 
+              ? `/posts/${originalPost.id}/stats` 
+              : `/posts/${post.id}/stats`
+          )}
+        >
+          <img src={StatsPostIcon} alt="Editar" />
+          <span>Ver engajamento da postagem</span>
+        </S.ButtonPopUp>
+      </S.PostPopUp>
+      <S.ClosePopUp 
+        onClick={
+          (e) => {
+            e.stopPropagation();
+            dispatch(closePostPopUp(post.id));
+          }
+        } 
+      />
+    </>
   );
 };
 
