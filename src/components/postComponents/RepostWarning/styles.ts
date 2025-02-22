@@ -15,7 +15,8 @@ export const RepostWarning = styled.div`
     font-size: ${theme.fontSizes.xs};
 
     svg {
-      width: 15px;
+      width: 100%;
+      max-width: 15px;
       fill: ${theme.colors.darkShades.d_45};
     }
 

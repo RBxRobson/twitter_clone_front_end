@@ -43,6 +43,7 @@ export const ReplyWrapper = styled.div`
 
 export const ContentPost = styled.div`
   text-align: start;
+  width: 100%;
 
   &>p {
     margin: 6px 0 14px;

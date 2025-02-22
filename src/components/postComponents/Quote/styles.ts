@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 8px;
+    width: 100%;
     padding: 12px;
     border-radius: 12px;
     border: 1px solid ${theme.colors.darkShades.d_55};
