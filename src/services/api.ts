@@ -9,12 +9,14 @@ const requiresAuthEndpoints = new Set([
   'fetchCurrentUser', 'createPost', 'editPost', 'deletePost', 
   'followUser', 'unfollowUser', 'userRecommendations', 'likePost',
   'getUserPosts', 'getUser', 'getUsers', 'updateUser', 'getUserFeed', 
-  'getPosts', 'listFollowing', 'listFollowers', 'getPostQuotes', 'getPostReposts'
+  'getPosts', 'listFollowing', 'listFollowers', 'getPostQuotes', 
+  'getPostReposts', 'getPost', 'getPostComments'
 ]);
 
 export const tags = [
   'UserPosts', 'UserProfile', 'UserFeed', 'Posts',
-  'ListFollowing', 'ListFollowers', 'UserRecommendations'
+  'ListFollowing', 'ListFollowers', 'UserRecommendations',
+  'CurrentPost', 'PostComments'
 ];
 
 const api = createApi({
@@ -104,6 +106,10 @@ const api = createApi({
       query: () => 'postings/posts/',
       providesTags: ['Posts']
     }),
+    getPost: builder.query<Post, string>({
+      query: (postId) => `postings/posts/${postId}/`,
+      providesTags: ['CurrentPost']
+    }),
     getPostQuotes: builder.query<Post[], string>({
       query: (postId) => ({
         url: `postings/posts/${postId}/quotes/`,
@@ -116,13 +122,20 @@ const api = createApi({
         method: 'GET',
       }),
     }),
+    getPostComments: builder.query<Post[], string>({
+      query: (postId) => ({
+        url: `postings/posts/${postId}/comments/`,
+        method: 'GET',
+      }),
+      providesTags: ['PostComments']
+    }),
     createPost: builder.mutation({
       query: (postData) => ({
         url: 'postings/posts/',
         method: 'POST',
         body: postData,
       }),
-      invalidatesTags: ['Posts', 'UserFeed', 'UserPosts']
+      invalidatesTags: ['Posts', 'UserFeed', 'UserPosts', 'PostComments']
     }),
     editPost: builder.mutation({
       query: ({ postId, postData }) => ({
@@ -130,14 +143,14 @@ const api = createApi({
         method: 'PUT',
         body: postData,
       }),
-      invalidatesTags: ['Posts', 'UserFeed', 'UserPosts']
+      invalidatesTags: ['Posts', 'UserFeed', 'UserPosts', 'CurrentPost', 'PostComments']
     }),
     deletePost: builder.mutation({
       query: (postId) => ({
         url: `postings/posts/${postId}/`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['UserPosts', 'Posts', 'UserFeed']
+      invalidatesTags: ['UserPosts', 'Posts', 'UserFeed', 'CurrentPost', 'PostComments']
     }),
     likePost: builder.mutation({
       query: (postId: number) => ({
@@ -155,7 +168,8 @@ export const {
   useUserRecommendationsQuery, useGetUserQuery, useGetUserPostsQuery,
   useLikePostMutation, useDeletePostMutation, useEditPostMutation,
   useUpdateUserMutation, useGetUserFeedQuery, useGetPostsQuery,
-  useGetPostQuotesQuery, useGetPostRepostsQuery
+  useGetPostQuotesQuery, useGetPostRepostsQuery, useGetPostQuery,
+  useGetPostCommentsQuery
 } = api;
 
 export default api;
