@@ -20,7 +20,7 @@ const currentPostSlice = createSlice({
   name: 'currentPost',
   initialState,
   reducers: {
-    setPost: (state, action: PayloadAction<Post>) => {
+    setPost: (state, action: PayloadAction<Post | null>) => {
       state.currentPost = action.payload;
     },
     openPostPopUp: (state, action: PayloadAction<number>) => {

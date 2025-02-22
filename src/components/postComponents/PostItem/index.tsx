@@ -45,11 +45,11 @@ const PostItem = ({ post, user }: Props) => {
       )}
       <S.WrapperContent>
         <SmallAvatar 
-          avatar={displayPost.user_details.avatar} 
-          username={displayPost.user_details.username} 
+          avatar={displayPost!.user_details.avatar} 
+          username={displayPost!.user_details.username} 
         />
         {isRepost && <RepostWarning username={post.user_details.username} />}
-        <Content post={displayPost}>
+        <Content post={displayPost!}>
           <>
             {post.post_type === 'quote' && <Quote publication={post.original_post as Post} />}
             { 
@@ -58,7 +58,7 @@ const PostItem = ({ post, user }: Props) => {
           </>
         </Content>
       </S.WrapperContent>
-      <Interactions displayPost={displayPost} />
+      <Interactions displayPost={displayPost!} />
     </S.PostContainer>
   );
 };

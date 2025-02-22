@@ -13,6 +13,7 @@ export const PostContainer = styled.li`
 export const WrapperContent = styled.div`
   display: flex;
   gap: 8px;
+  width: 100%;
 
   &>img {
     cursor: default;

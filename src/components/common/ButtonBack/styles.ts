@@ -12,7 +12,7 @@ export const BtnBack = styled.a`
 
     &:hover,
     &:active {
-      background-color: ${theme.colors.darkShades.d_60};
+      background-color: ${theme.colors.darkShades.d_40};
     }
 
     img {
