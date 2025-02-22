@@ -6,10 +6,15 @@ import * as S from './styles';
 type Props = {
   user?: User;
   publication?: Post;
+  isPostPage?: boolean;
   navigateProfile?: boolean;
 };
 
-const UserInfos = ({ user, publication, navigateProfile = false }: Props) => {
+const UserInfos = ({ 
+  user, publication, 
+  isPostPage = false, 
+  navigateProfile = false 
+}: Props) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -19,7 +24,7 @@ const UserInfos = ({ user, publication, navigateProfile = false }: Props) => {
   ) => {
     event.stopPropagation();
     const sanitizedUsername = username.replace('@', '');
-  
+
     if (`/profile/${sanitizedUsername}` === location.pathname) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -27,72 +32,71 @@ const UserInfos = ({ user, publication, navigateProfile = false }: Props) => {
     }
   };
 
-  const setContentUserInfos = () => {
-    if (publication && navigateProfile) {
-      return (
-        <S.PostContainer>
-          <S.UserInfos>
-            <S.WrapperOverflow >
-              <a 
-                onClick={(e) => 
-                  handleProfileClick(e, publication.user_details.username)
-                }
-              >
-                {publication?.user_details.name}
-              </a>
-            </S.WrapperOverflow>
-          </S.UserInfos>
-          <S.UserInfos>
-            <S.WrapperOverflow>
-              <span>{publication?.user_details.username}</span>
-            </S.WrapperOverflow>
-          </S.UserInfos>
-          <time>
-            <span className='divisor'>·</span>
-            {formatTimeAgo(publication?.created_at)}
-          </time>
-        </S.PostContainer>
-      );
-    } else if (publication) {
-      return (
-        <S.PostContainer>
-          <S.UserInfos>
-            <S.WrapperOverflow>
-              <h4>
-                {publication?.user_details.name}
-              </h4>
-            </S.WrapperOverflow>
-          </S.UserInfos>
-          <S.UserInfos>
-            <S.WrapperOverflow>
-              <span>{publication?.user_details.username}</span>
-            </S.WrapperOverflow>
-          </S.UserInfos>
-          <time>
-            <span className='divisor'>·</span>
-            {formatTimeAgo(publication?.created_at)}
-          </time>
-        </S.PostContainer>
-      );
-    } else {
-      return (
+  if (publication) {
+    const { name, username } = publication.user_details;
+
+    if (isPostPage) {
+      return(
         <S.UserInfos>
           <S.WrapperOverflow>
-            <h4>{user?.name}</h4>
+            <a onClick={(e) => handleProfileClick(e, username)}>{name}</a>
           </S.WrapperOverflow>
           <S.WrapperOverflow>
-            <span>
-              {user?.username}
-            </span>
+            <span onClick={(e) => handleProfileClick(e, username)}>{username}</span>
           </S.WrapperOverflow>
         </S.UserInfos>
       );
-    };
-  };
+    }
 
-  return (
-    setContentUserInfos()
-  );
+    return (
+      <div>
+        <S.PostContainer>
+          <S.UserInfos>
+            <S.WrapperOverflow>
+              {navigateProfile ? (
+                <a onClick={(e) => handleProfileClick(e, username)}>{name}</a>
+              ) : (
+                <h4 onClick={(e) => handleProfileClick(e, username)}>{name}</h4>
+              )}
+            </S.WrapperOverflow>
+          </S.UserInfos>
+          <S.UserInfos>
+            <S.WrapperOverflow>
+              <span>{username}</span>
+            </S.WrapperOverflow>
+          </S.UserInfos>
+          <time>
+            <span className='divisor'>·</span>
+            {formatTimeAgo(publication.created_at)}
+          </time>
+        </S.PostContainer>
+        {publication.post_type === 'comment' &&
+        <S.ReplyWarning>
+          <span>Respondendo a </span>
+          <a 
+            href={`/profile/${publication.user_details.username.replace('@', '')}`}>
+            {publication.user_details.username}
+          </a>
+        </S.ReplyWarning>
+        }
+      </div>
+    );
+  }
+
+  if (user) {
+    return (
+      <S.UserInfos>
+        <S.WrapperOverflow>
+          <h4>{user.name}</h4>
+        </S.WrapperOverflow>
+        <S.WrapperOverflow>
+          <span>{user.username}</span>
+        </S.WrapperOverflow>
+      </S.UserInfos>
+    );
+  }
+
+  return null;
 };
 
 export default UserInfos;

@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import { RepostWarning } from '../../postComponents/RepostWarning/styles';
+
 export const PostContainer = styled.div`
   ${({ theme }) => css`
     display: flex;
@@ -51,6 +53,23 @@ export const WrapperOverflow = styled.div`
 
     a:hover {
       text-decoration: underline;
+    }
+  `}
+`;
+
+export const ReplyWarning = styled(RepostWarning)`
+  ${({ theme }) => css`
+    position: static;
+    font-size: ${theme.fontSizes.sm};
+    font-weight: ${theme.fontWeights.regular};
+    margin-top: 2px;
+    
+    span {
+    }
+    a {
+      color: ${theme.colors.blueShades.b_50};
+      font-weight: ${theme.fontWeights.regular};
+      font-size: ${theme.fontSizes.sm};
     }
   `}
 `;
