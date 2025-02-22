@@ -65,28 +65,36 @@ const Interactions = ({ displayPost }: Props) => {
         onClick={(e) => handleInteractionClick('Comentar', e)}
       >
         <CommentIcon />
-        <span>{displayPost.comments_count}</span>
+        {displayPost.comments_count !== 0 &&
+          <span>{displayPost.comments_count}</span>
+        }
       </S.Interaction>
       <S.Interaction
         className={`${isReposted ? 'repost-icon-active' : ''} repost-icon`}
         onClick={(e) => handleInteractionClick('Repostar', e)}
       >
         <RepostIcon />
-        <span>{repostCount}</span>
+        {repostCount !== 0 &&
+          <span>{repostCount}</span>
+        }
       </S.Interaction>
       <S.Interaction
         className={`${isLiked ? 'like-icon-active' : ''} like-icon`}
         onClick={(e) => handleInteractionClick('Curtir', e)}
       >
         <LikeIcon />
-        <span>{likeCount}</span>
+        {likeCount !== 0 && 
+          <span>{likeCount}</span>
+        }
       </S.Interaction>
       <S.Interaction
         className="quote-icon"
         onClick={(e) => handleInteractionClick('Citar', e)}
       >
         <QuoteIcon />
-        <span>{displayPost.quotes_count}</span>
+        {displayPost.quotes_count !== 0 &&
+          <span>{displayPost.quotes_count}</span>
+        }
       </S.Interaction>
     </S.PostInteractions>
   );
