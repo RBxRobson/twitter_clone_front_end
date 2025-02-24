@@ -7,6 +7,7 @@ const GlobalStyles = createGlobalStyle`
 
   ${({ theme }) => css`
     body {
+      overflow-y: scroll;
       font-size: ${theme.fontSizes.sm};
       color: ${theme.colors.whiteShades.w_45};
       background-color: ${theme.colors.absoluteColors.black};

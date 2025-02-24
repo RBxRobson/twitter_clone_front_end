@@ -10,7 +10,7 @@ const requiresAuthEndpoints = new Set([
   'followUser', 'unfollowUser', 'userRecommendations', 'likePost',
   'getUserPosts', 'getUser', 'getUsers', 'updateUser', 'getUserFeed', 
   'getPosts', 'listFollowing', 'listFollowers', 'getPostQuotes', 
-  'getPostReposts', 'getPost', 'getPostComments'
+  'getPostReposts', 'getPost', 'getPostComments', 'searchUsers'
 ]);
 
 export const tags = [
@@ -38,6 +38,9 @@ const api = createApi({
         const { data } = await queryFulfilled;
         dispatch(setUser(data));
       }
+    }),
+    searchUsers: builder.query<User[], string>({
+      query: (searchTerm) => `accounts/search/?q=${searchTerm}`,
     }),
     getUsers: builder.query<User[], void>({ 
       query: () => 'accounts/users/'
@@ -169,7 +172,7 @@ export const {
   useLikePostMutation, useDeletePostMutation, useEditPostMutation,
   useUpdateUserMutation, useGetUserFeedQuery, useGetPostsQuery,
   useGetPostQuotesQuery, useGetPostRepostsQuery, useGetPostQuery,
-  useGetPostCommentsQuery
+  useGetPostCommentsQuery, useSearchUsersQuery
 } = api;
 
 export default api;

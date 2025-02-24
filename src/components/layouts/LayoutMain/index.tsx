@@ -21,7 +21,7 @@ const LayoutMain = ({ children }: LayoutProps) => {
 
   useFetchCurrentUserQuery(undefined, {skip: Boolean(user)});
 
-  const isRecommendationsRoute = location.pathname === '/recommendations';
+  const noAsideInfos = ['/recommendations', '/explore'].includes(location.pathname);
 
   return (
     <S.MainContainer id="main">
@@ -30,7 +30,7 @@ const LayoutMain = ({ children }: LayoutProps) => {
         <PublicationModal />
       )}
       {children}
-      {!isRecommendationsRoute && <AsideInfos />}
+      {!noAsideInfos && <AsideInfos />}
     </S.MainContainer>
   );
 };

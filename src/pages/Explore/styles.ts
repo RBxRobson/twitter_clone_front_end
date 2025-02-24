@@ -21,5 +21,6 @@ export const Header = styled(HeaderBlur)`
 export const Title = styled.h2`
   ${({ theme }) => css`
     font-size: ${theme.fontSizes.lg};
+    white-space: nowrap;
   `}
 `;

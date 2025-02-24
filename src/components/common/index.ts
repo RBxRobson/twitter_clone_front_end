@@ -8,6 +8,7 @@ import ButtonHeaderBlur from './ButtonHeaderBlur';
 import UsersList from './UsersList';
 import ButtonBack from './ButtonBack';
 import MoreButton from './MoreButton';
+import SearchInput from './SearchInput';
 import { useFollow } from './UseFollow';
 import { usePostUtils } from './usePostUtils';
 
@@ -23,5 +24,6 @@ export {
   UsersList,
   ButtonBack,
   MoreButton,
-  usePostUtils
+  usePostUtils,
+  SearchInput
 };
