@@ -11,6 +11,10 @@ export const Header = styled(HeaderBlur)`
     gap: 30px;
     padding: 14px 10px;
     border-bottom: 1px solid ${theme.colors.darkShades.d_55};
+
+    label {
+      margin-left: auto;
+    }
   `}
 `;
 
