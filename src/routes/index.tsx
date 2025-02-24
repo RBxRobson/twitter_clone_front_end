@@ -84,6 +84,7 @@ const Routes = () => {
               <RouterRoutes>
                 <Route path="/home" element={<P.Home />} />
                 <Route path="/recommendations" element={<P.Recommendations />} />
+                <Route path="/explore" element={<P.Explore />} />
                 <Route path="/profile/:username" element={<P.Profile />} />
                 <Route path="/profile/:username/followers" element={<P.Followers />} />
                 <Route path="/posts/:post" element={<P.Post />} />
