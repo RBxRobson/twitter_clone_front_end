@@ -5,6 +5,7 @@ import Profile from './Profile';
 import Followers from './Followers';
 import PostStats from './PostStats';
 import Post from './Post';
+import Explore from './Explore';
 
 export { 
   Auth, 
@@ -13,5 +14,6 @@ export {
   Profile,
   Followers,
   PostStats,
-  Post
+  Post,
+  Explore
 };
