@@ -70,7 +70,8 @@ const UserInfos = ({
             {formatTimeAgo(publication.created_at)}
           </time>
         </S.PostContainer>
-        {publication.post_type === 'comment' &&
+        {publication.post_type === 'comment' && 
+        !location.pathname.includes('posts') &&
         <S.ReplyWarning>
           <span>Respondendo a </span>
           <a 
