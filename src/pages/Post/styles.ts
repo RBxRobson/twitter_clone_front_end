@@ -23,6 +23,7 @@ export const Header = styled(HeaderBlur)`
     gap: 26px;
     padding: 15px;
     border-bottom: 1px solid ${theme.colors.darkShades.d_55};
+    margin-bottom: 12px;
   `}
 `;
 
@@ -50,6 +51,7 @@ export const PostContainer = styled.div`
   ${({ theme }) => css`
     width: 100%;
     padding: 12px 16px;
+    padding-top: 0;
     position: relative;
     border-bottom: 1px solid ${theme.colors.darkShades.d_55};
 
