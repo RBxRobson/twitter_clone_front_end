@@ -65,6 +65,23 @@ const Post = () => {
     formik.setFieldValue('original_post', currentPost!.id);
   };
 
+  const getPostThread = (post: Post | null): Post[] => {
+    const thread: Post[] = [];
+  
+    while (post?.original_post) {
+      thread.unshift(post.original_post);
+      
+      if (post.original_post.post_type !== 'comment') {
+        break;
+      }
+  
+      post = post.original_post;
+    }
+  
+    return thread;
+  };
+  
+
   useEffect(() => {
     if (error && 'status' in error && error.status === 404) {
       alert('Post não encontrado, voltando para pagina inicial');
@@ -85,6 +102,8 @@ const Post = () => {
     );
   }
 
+  const postThread = getPostThread(currentPost);
+
   return (
     <S.ModCentralWrapper>
       <S.Header>
@@ -92,6 +111,7 @@ const Post = () => {
         <h2>Publicação</h2>
         <S.ButtonComment>Comentar</S.ButtonComment>
       </S.Header>
+      <PostList posts={postThread} isThreadList/>
       <S.PostContainer>
         <S.PostHeader>
           <SmallAvatar 
