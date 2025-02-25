@@ -6,13 +6,14 @@ import * as S from './styles';
 
 type Props = {
   posts: Post[];
+  isThreadList?: boolean;
 };
 
-const PostList = ({ posts }: Props) => {
+const PostList = ({ posts, isThreadList = false }: Props) => {
   const { user } = useSelector((state: RootReducer) => state.user);
 
   return (
-    <S.Feed>
+    <S.Feed isThreadList={isThreadList}>
       {posts.map((post) => (
         <PostItem 
           key={post.id} 
