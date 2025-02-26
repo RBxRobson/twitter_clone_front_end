@@ -2,22 +2,6 @@ import styled, { css } from 'styled-components';
 
 import { RepostWarning } from '../../postComponents/RepostWarning/styles';
 
-export const PostContainer = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    gap: 4px;
-
-    span, time {
-      color: ${theme.colors.darkShades.d_45};
-      cursor: default;
-    }
-
-    .divisor {
-      padding-right: 4px;
-    }
-  `}
-`;
-
 export const UserInfos = styled.div`
   ${({ theme }) => css`
     display: table;
@@ -53,6 +37,23 @@ export const WrapperOverflow = styled.div`
 
     a:hover {
       text-decoration: underline;
+    }
+  `}
+`;
+
+export const PostContainer = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    gap: 4px;
+    max-width: calc(100% - 28px);
+
+    span, time {
+      color: ${theme.colors.darkShades.d_45};
+      cursor: default;
+    }
+
+    .divisor {
+      padding-right: 4px;
     }
   `}
 `;

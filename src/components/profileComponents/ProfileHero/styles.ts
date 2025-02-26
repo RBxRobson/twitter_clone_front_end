@@ -8,12 +8,12 @@ export const ProfileHero = styled.div`
 export const Cover = styled.img`
   width: 100%;
   max-height: 200px;
+  min-height: 150px;
   object-fit: cover;
 `;
 
 export const Avatar = styled.img`
   width: 100%;
-  max-height: 134px;
   object-fit: cover;
 `;
 
