@@ -15,6 +15,7 @@ import AddUSerIcon from './add_user_icon.svg';
 import EditIcon from './edit_icon.svg';
 import CameraIcon from './camera_icon.svg';
 import StatsPostIcon from './stats_post_icon.svg';
+import AddIconPost from './add_post_icon.svg';
 
 export { 
   IconClose, 
@@ -33,5 +34,6 @@ export {
   TrashIcon,
   EditIcon,
   CameraIcon,
-  StatsPostIcon
+  StatsPostIcon,
+  AddIconPost
 };
