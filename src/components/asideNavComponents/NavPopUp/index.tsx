@@ -25,7 +25,8 @@ const PopUpBalloon = () => {
     <>
       <S.PopUpBallon>
         <S.ExitLink onClick={handleClickExitLink}>
-            Sair {user?.username}
+          Sair 
+          <S.WrapperOverflow><span>{user?.username}</span></S.WrapperOverflow>
         </S.ExitLink>
       </S.PopUpBallon>
       <S.ClosePopUp onClick={handleClickClosePopUp} />
