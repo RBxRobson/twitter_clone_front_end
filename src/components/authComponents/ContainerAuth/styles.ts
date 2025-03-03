@@ -13,6 +13,8 @@ export const ContainerAuth = styled.div`
       flex-direction: column;
       align-items: start;
       flex-grow: 0;
+      min-height: 650px;
+      overflow-y: scroll;
       height: 100dvh;
       padding: 16px;
     }

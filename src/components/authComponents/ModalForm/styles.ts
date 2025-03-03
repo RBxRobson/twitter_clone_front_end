@@ -29,6 +29,8 @@ export const ModalForm = styled(Modal)`
       max-width: 100%;
       border-radius: 0;
       height: 100dvh;
+      min-height: 650px;
+      overflow-y: scroll; 
       padding: 12px;
 
       label {
