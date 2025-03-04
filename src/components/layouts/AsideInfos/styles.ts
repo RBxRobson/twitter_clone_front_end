@@ -26,7 +26,7 @@ export const AsideInfos = styled.aside`
       flex-basis: 100%;
     }
 
-    ${theme.setBreakpoint(theme.breakpoints.sm)} {
+    ${theme.setBreakpoint(theme.breakpoints.md)} {
       display: none;
     }
   `}
