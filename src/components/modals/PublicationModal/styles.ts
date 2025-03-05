@@ -6,25 +6,46 @@ import {
   Overlay, 
   ButtonPrimary
 } from '../../../styles/common';
+import { setBreakpoint } from '../../../styles/themes/breakpoints';
 
 export { ButtonClose };
 
 export const ModalOverlay = styled(Overlay)`
-  display: flex;
-  justify-content: center;
-  padding-top: 50px;
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+
+    ${setBreakpoint(theme.breakpoints.sm)} {
+      padding-top: 0;
+    }
+  `}
 `;
 
 export const ModalForm = styled(Modal)`
-  display: flex;
-  flex-direction: column;
-  padding: 66px 16px 16px;
-  height: fit-content;
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    padding: 66px 16px 16px;
+    height: fit-content;
 
-  ${ButtonClose} {
-    top: 10px;
-    left: 10px;
-  }
+    ${ButtonClose} {
+      top: 10px;
+      left: 10px;
+    }
+
+    ${setBreakpoint(theme.breakpoints.sm)} {
+      max-width: 100%;
+      border-radius: 0;
+      height: 100dvh;
+      padding: 80px 22px 16px;
+
+      ${ButtonClose} {
+        top: 8px;
+        left: 0;
+      }
+    }
+  `}
 `;
 
 export const InputGroup = styled.div`
