@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import { ButtonPrimary } from '../../../styles/common';
+import { setBreakpoint } from '../../../styles/themes/breakpoints';
 
 export const ProfileContent = styled.div`
   ${({ theme }) => css`
@@ -27,6 +28,10 @@ export const ProfileContent = styled.div`
       position: absolute;
       top: 12px;
       right: 16px;
+    }
+
+    ${setBreakpoint(theme.breakpoints.sm)} {
+      padding-top: 70px;
     }
   `}
 `;

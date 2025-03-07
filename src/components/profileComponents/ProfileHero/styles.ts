@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import { setBreakpoint } from '../../../styles/themes/breakpoints';
+
 export const ProfileHero = styled.div`
   position: relative;
   z-index: 1;
@@ -35,5 +37,11 @@ export const WrapperAvatar = styled.div`
     border: 4px solid ${theme.colors.absoluteColors.black};
     background-color: ${theme.colors.whiteShades.w_40};
     overflow: hidden;
+
+    ${setBreakpoint(theme.breakpoints.sm)} {
+      max-width: 110px;
+      max-height: 110px;
+      transform: translateY(56px);
+    }
   `};
 `;
