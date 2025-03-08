@@ -55,5 +55,10 @@ export const NavButton = styled.a`
         display: none;
       }
     }
+
+    ${setBreakpoint(theme.breakpoints.sm)} {
+      padding: 10px;
+      margin-top: 4px;
+    }
   `};
 `;

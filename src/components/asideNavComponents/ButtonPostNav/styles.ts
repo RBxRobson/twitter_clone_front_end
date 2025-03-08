@@ -29,5 +29,9 @@ export const ButtonPostNav = styled(ButtonPrimary)`
         display: block;
       }
     }
+
+    ${setBreakpoint(theme.breakpoints.sm)} {
+      padding: 12px;
+    }
   `};
 `;
