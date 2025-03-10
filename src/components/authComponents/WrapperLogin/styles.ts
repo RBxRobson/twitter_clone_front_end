@@ -36,6 +36,12 @@ export const WrapperLogin = styled.div`
         padding-bottom: 48px;
       };
     }
+
+    ${setBreakpoint(theme.breakpoints.xs)} {
+      h2 {
+        font-size: 42px;
+      };
+    }
   `};
 `;
 
