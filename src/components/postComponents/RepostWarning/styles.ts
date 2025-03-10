@@ -1,18 +1,20 @@
 import styled, { css } from 'styled-components';
 
+import { setBreakpoint } from '../../../styles/themes/breakpoints';
+
 export const RepostWarning = styled.div`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
     gap: 4px;
-    width: 100%;
+    width: calc(100% - 22px);
+    max-width: 550px;
+    height: 0;
     text-align: start;
     color: ${theme.colors.darkShades.d_45};
-    position: absolute;
-    top: 0;
-    left: 18px;
     font-weight: bold;
     font-size: ${theme.fontSizes.xs};
+    transform: translateY(-15px) translateX(6px);
 
     svg {
       width: 100%;
@@ -30,6 +32,14 @@ export const RepostWarning = styled.div`
       &:hover {
         text-decoration: underline;
       }
+    }
+
+    ${setBreakpoint(theme.breakpoints.lg)} {
+      max-width: 450px;
+    }
+
+    ${setBreakpoint(theme.breakpoints.sm)} {
+      max-width: 280px;
     }
   `};
 `;

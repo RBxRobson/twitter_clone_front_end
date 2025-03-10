@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import { ButtonClose, ButtonPrimary, Modal, Overlay, Label } from '../../../styles/common';
+import { setBreakpoint } from '../../../styles/themes/breakpoints';
 
 export const ModalOverlay = styled(Overlay)`
   display: flex;
@@ -9,11 +10,20 @@ export const ModalOverlay = styled(Overlay)`
 `;
 
 export const ModalForm = styled(Modal)`
-  padding-bottom: 64px;
-  height: 650px;
-  width: 100%;
-  max-width: 600px;
-  overflow-y: scroll;
+  ${({ theme }) => css`
+    padding-bottom: 64px;
+    height: 650px;
+    width: 100%;
+    max-width: 600px;
+    overflow-y: scroll;
+
+    ${setBreakpoint(theme.breakpoints.sm)} {
+      max-width: 100%;
+      border-radius: 0;
+      height: 100dvh;
+      padding-bottom: 20px;
+    }
+  `}
 `;
 
 export const HeaderModal = styled.header`

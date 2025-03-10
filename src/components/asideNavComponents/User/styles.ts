@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import { setBreakpoint } from '../../../styles/themes/breakpoints';
+
 export const User = styled.div`
   ${({ theme }) => css`
     cursor: pointer;
@@ -14,6 +16,16 @@ export const User = styled.div`
     &:hover,
     &:active {
       background-color: ${theme.colors.darkShades.d_65};
+    }
+
+    ${setBreakpoint(theme.breakpoints.xl)} {
+      width: fit-content;
+      padding-right: 12px;
+      
+      div, 
+      span {
+        display: none;
+      }
     }
   `}
 `;

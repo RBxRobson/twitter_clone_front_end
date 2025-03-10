@@ -13,15 +13,29 @@ const PostList = ({ posts, isThreadList = false }: Props) => {
   const { user } = useSelector((state: RootReducer) => state.user);
 
   return (
-    <S.Feed isThreadList={isThreadList}>
-      {posts.map((post) => (
-        <PostItem 
-          key={post.id} 
-          post={post}
-          user={user!} 
-        />
-      ))}
-    </S.Feed>
+    <>
+      {isThreadList ? (
+        <S.Feed isThreadList={isThreadList}>
+          {posts.map((post) => (
+            <PostItem 
+              key={post.id} 
+              post={post}
+              user={user!} 
+            />
+          ))}
+        </S.Feed>
+      ):(
+        <S.Feed>
+          {posts.map((post) => (
+            <PostItem 
+              key={post.id} 
+              post={post}
+              user={user!} 
+            />
+          ))}
+        </S.Feed>
+      )}
+    </>
   );
 };
 

@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 
 import { openPublicationModal } from '../../../store/reducers/publicationModal';
+import { AddIconPost } from '../../../assets/images';
 import * as S from './styles';
 
 const ButtonPostNav = () => {
@@ -11,8 +12,10 @@ const ButtonPostNav = () => {
   };
 
   return (
-    <S.ButtonPostNav onClick={handleClick}>
-      Publicar
+    <S.ButtonPostNav onClick={handleClick} title="Publicar">
+      <span>Publicar</span>
+
+      <img src={AddIconPost} alt="Publicar" />
     </S.ButtonPostNav>
   );
 };

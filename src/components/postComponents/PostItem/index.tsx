@@ -43,12 +43,12 @@ const PostItem = ({ post, user }: Props) => {
           originalPost={isRepost ? post.original_post  : null}
         />
       )}
+      {isRepost && <RepostWarning username={post.user_details.username} />}
       <S.WrapperContent>
         <SmallAvatar 
           avatar={displayPost!.user_details.avatar} 
           username={displayPost!.user_details.username} 
         />
-        {isRepost && <RepostWarning username={post.user_details.username} />}
         <Content post={displayPost!}>
           <>
             {post.post_type === 'quote' && <Quote publication={post.original_post as Post} />}

@@ -48,22 +48,25 @@ const NavItens = () => {
   ];
 
   return (
-    navItems.map(({ path, label, icon, iconActive }) => {
-      const isActive = location.pathname === path;
-      return (
-        <S.NavButton 
-          key={label} 
-          href={path} 
-          className={isActive ? 'is-active' : ''}
-        >
-          <img 
-            src={isActive ? iconActive : icon} 
-            alt={`Ícone de ${label}`} 
-          />
-          <h2>{label}</h2>
-        </S.NavButton>
-      );
-    })
+    <S.ItensContainer>
+      {navItems.map(({ path, label, icon, iconActive }) => {
+        const isActive = location.pathname === path;
+        return (
+          <S.NavButton 
+            key={label} 
+            href={path} 
+            className={isActive ? 'is-active' : ''}
+            title={`Ir para ${label}`}
+          >
+            <img 
+              src={isActive ? iconActive : icon} 
+              alt={`Ícone de ${label}`} 
+            />
+            <h2>{label}</h2>
+          </S.NavButton>
+        );
+      })}
+    </S.ItensContainer>
   );
 };
 

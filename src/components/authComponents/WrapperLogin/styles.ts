@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import { setBreakpoint } from '../../../styles/themes/breakpoints';
+
 export const WrapperLogin = styled.div`
   ${({ theme }) => css`
     flex: 1;
@@ -20,6 +22,26 @@ export const WrapperLogin = styled.div`
       font-size: ${theme.fontSizes.md};
       padding: 16px 0 20px;
     };
+
+    ${setBreakpoint(theme.breakpoints.sm)} {
+      flex: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 auto;
+
+      h2 {
+        font-size: 52px;
+        font-weight: ${theme.fontWeights.bold};
+        padding-bottom: 48px;
+      };
+    }
+
+    ${setBreakpoint(theme.breakpoints.xs)} {
+      h2 {
+        font-size: 42px;
+      };
+    }
   `};
 `;
 
