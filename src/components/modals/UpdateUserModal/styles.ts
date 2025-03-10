@@ -18,11 +18,11 @@ export const ModalForm = styled(Modal)`
     overflow-y: scroll;
 
     ${setBreakpoint(theme.breakpoints.sm)} {
-        max-width: 100%;
-        border-radius: 0;
-        height: 100dvh;
-        padding-bottom: 20px;
-      }
+      max-width: 100%;
+      border-radius: 0;
+      height: 100dvh;
+      padding-bottom: 20px;
+    }
   `}
 `;
 
